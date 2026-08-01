@@ -1,0 +1,18 @@
+{
+  "product": "PropertyTour360 Designer Studio",
+  "version": "3.1.0",
+  "releaseType": "unified Mode B source release",
+  "backendContract": "PropertyTour360_Backend_Unified_Final_v3.1.0",
+  "androidContract": "PropertyTour360_Android_ModeB_Complete_v3.1.0",
+  "canonicalModelSchema": "2.1",
+  "capturePackageSchema": "2.1",
+  "workspaces": ["CAPTURE_REVIEW", "SHELL_CORRECTION", "INTERIOR_DESIGN", "PRESENTATION"],
+  "clientRoute": "/d/{slug}",
+  "validation": {
+    "typescriptParserFiles": 28,
+    "semanticTypecheck": "passed with local dependency declarations",
+    "canonicalModelSmoke": "passed",
+    "backendRouteFamilies": "18/18 matched",
+    "realNextProductionBuild": "required in deployment CI"
+  }
+}
