@@ -37,6 +37,7 @@ export function AppShell({ children, compact = false }: { children: ReactNode; c
           </Link>
           <nav className="sidebar-nav" aria-label="Main navigation">
             <Link className={pathname === '/studio' ? 'active' : ''} href="/studio"><Icon name="projects"/>Projects</Link>
+            <Link className={pathname === '/studio/panoramas' ? 'active' : ''} href="/studio/panoramas"><Icon name="cube"/>360° Library</Link>
             <a href="#" aria-disabled="true"><Icon name="layers"/>Material library<span className="soon">Soon</span></a>
             <a href="#" aria-disabled="true"><Icon name="sofa"/>Furniture library<span className="soon">Soon</span></a>
           </nav>

@@ -2,8 +2,7 @@ import { clearToken, getApiBase, getToken } from './auth';
 import type {
   CaptureSummary, CatalogueAsset, ClientShareLink, DesignComment, DesignModel, DesignOption, DesignProject,
   EvidenceResponse, ExportFormat, ExportRecord, GeometryProposal, MaterialRecord, MeasurementModel, ModelReview,
-  ProcessingJob, ProductRecord, PublicDesignManifest, PublicShareDesign
-} from './types';
+  ProcessingJob, ProductRecord, PublicDesignManifest, PublicShareDesign, PanoramaAsset } from './types';
 
 export class ApiError extends Error {
   constructor(public status: number, public payload: unknown) {
@@ -53,6 +52,9 @@ export const api = {
   confirmModel: (projectId: string, status: 'DESIGNER_CONFIRMED' | 'SITE_VERIFIED', note?: string) => request<DesignProject>(`/v1/design-projects/${projectId}/confirm`, { method: 'POST', body: JSON.stringify({ status, note }) }),
   submitReview: (projectId: string, decision: 'DESIGNER_CONFIRMED' | 'SITE_VERIFIED' | 'CHANGES_REQUIRED', notes?: string) => request<ModelReview>(`/v2/design-projects/${projectId}/reviews`, { method: 'POST', body: JSON.stringify({ decision, notes }) }),
   runModelQa: (projectId: string) => request<{ jobId: string }>(`/v2/design-projects/${projectId}/model-qa`, { method: 'POST' }),
+  listPanoramas: () => request<PanoramaAsset[]>('/v1/panoramas'),
+  getCaptureAssetUrl: (captureId: string, assetId: string) =>
+    request<{ url: string; expiresInSeconds: number }>(`/v1/captures/${captureId}/assets/${assetId}/download-url`),
   getEvidence: (projectId: string) => request<EvidenceResponse>(`/v2/design-projects/${projectId}/evidence`),
   listProposals: (projectId: string) => request<GeometryProposal[]>(`/v2/models/${projectId}/proposals`),
   decideProposal: (projectId: string, proposalId: string, decision: 'ACCEPT' | 'REJECT', note?: string) => request<GeometryProposal>(`/v2/models/${projectId}/proposals/${proposalId}/decision`, { method: 'POST', body: JSON.stringify({ decision, note }) }),

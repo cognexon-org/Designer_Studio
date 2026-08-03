@@ -99,6 +99,16 @@ export interface FurnitureObject {
   clearanceM?: number;
 }
 
+/** Equirectangular capture produced by the Mode A stitcher, linked to a room. */
+/** A stitched Mode A panorama as listed by GET /v1/panoramas. */
+export interface PanoramaAsset {
+  assetId: string; captureId: string; roomId: string | null; roomName: string | null;
+  propertyName: string | null; unitLabel: string | null; status: string;
+  mimeType?: string; qaScore: number | null; createdAt: string;
+}
+
+export interface RoomPanorama { roomId: string; url: string; capturedAt?: string; }
+
 export interface RoomModel {
   id: string;
   name: string;
@@ -106,6 +116,10 @@ export interface RoomModel {
   floorPolygon: Point2[];
   walls: WallModel[];
   objects: (FurnitureObject | Record<string, unknown>)[];
+  /** Mode A capture linked to this room; persisted with the model so every
+      version and the walkthrough agree on which photograph belongs here. */
+  panoramaUrl?: string;
+  panoramaAssetId?: string;
   floorId?: string;
   roomType?: string;
   scaleStatus?: string;
@@ -171,6 +185,7 @@ export interface ProductVariant { id: string; name: string; materialId?: string 
 export interface ProductRecord { id: string; sku: string; name: string; category: string; supplier?: string | null; catalogueAssetId?: string | null; metadata?: Record<string, unknown> | null; variants: ProductVariant[]; }
 
 export interface DesignProject {
+  panoramas?: RoomPanorama[];
   id: string; unitId: string; captureId: string; name: string;
   status: string; geometryStatus?: string; verificationStatus?: VerificationStatus | string;
   geometryReport?: GeometryReport | null; slug: string; activeVersion: number; model: DesignModel;
