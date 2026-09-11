@@ -262,6 +262,21 @@ export interface ProgressCaptureAsset {
   createdAt: string;
 }
 
+
+export interface ProgressCaptureUpload {
+  id: string;
+  roomId?: string | null;
+  assetId: string;
+  filename: string;
+  kind: string;
+  status: string;
+  uploadedBytes: number | string;
+  totalSizeBytes: number | string;
+  totalParts: number;
+  completedAt?: string | null;
+  updatedAt: string;
+}
+
 export interface CaptureSnapshot {
   id: string;
   projectId: string;
@@ -284,6 +299,7 @@ export interface CaptureSnapshot {
     createdAt: string;
     rooms: ProgressCaptureRoom[];
     assets: ProgressCaptureAsset[];
+    resumableUploads?: ProgressCaptureUpload[];
     designProjects?: ProgressDesignProjectSummary[];
     jobs?: ProcessingJob[];
   };

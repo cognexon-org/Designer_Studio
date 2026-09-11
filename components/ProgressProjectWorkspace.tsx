@@ -21,6 +21,11 @@ function captureLabel(snapshot: CaptureSnapshot) {
 function SnapshotCard({ snapshot, active, onClick }: { snapshot: CaptureSnapshot; active?: boolean; onClick?: () => void }) {
   const spatialRooms = snapshot.capture.rooms.filter((room) => room.spatialRoomId).length;
   const panoramas = snapshot.capture.assets.filter((asset) => asset.kind === 'PANORAMA').length;
+  const uploads = snapshot.capture.resumableUploads ?? [];
+  const activeUploads = uploads.filter((upload) => !['COMPLETED','CANCELLED'].includes(upload.status));
+  const quality = snapshot.qualityReport ?? {};
+  const preflight = quality.preflight && typeof quality.preflight === 'object' ? quality.preflight as Record<string, unknown> : null;
+  const preflightScore = typeof preflight?.score === 'number' ? preflight.score : null;
   return (
     <button className={`progress-snapshot-card ${active ? 'active' : ''}`} onClick={onClick} type="button">
       <div className="progress-snapshot-card-head">
@@ -29,6 +34,9 @@ function SnapshotCard({ snapshot, active, onClick }: { snapshot: CaptureSnapshot
       </div>
       <span>{fmt(snapshot.capturedAt)}</span>
       <small>{snapshot.floor?.name || 'Project scope'} · {spatialRooms}/{snapshot.capture.rooms.length} rooms spatially linked · {panoramas} panoramas</small>
+      {(preflightScore !== null || uploads.length > 0) && <small className="capture-health-line">
+        {preflightScore !== null ? `Preflight ${preflightScore}/100` : 'Preflight —'} · {uploads.length ? `${uploads.filter((upload) => upload.status === 'COMPLETED').length}/${uploads.length} reliable uploads complete` : 'no resumable uploads'}{activeUploads.length ? ` · ${activeUploads.length} active` : ''}
+      </small>}
     </button>
   );
 }
@@ -136,6 +144,23 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
                   <div>{project.rooms.filter((room) => room.floorId === floor.id).map((room) => <small key={room.id}>{room.name}</small>)}</div>
                 </article>
               ))}
+            </div>
+          </section>
+          <section className="progress-card">
+            <div className="progress-section-title"><div><p className="eyebrow">Capture reliability</p><h2>Field health</h2></div></div>
+            <div className="spatial-room-grid">
+              {timeline.slice(0, 4).map((snapshot) => {
+                const uploads = snapshot.capture.resumableUploads ?? [];
+                const completed = uploads.filter((upload) => upload.status === 'COMPLETED').length;
+                const quality = snapshot.qualityReport ?? {};
+                const preflight = quality.preflight && typeof quality.preflight === 'object' ? quality.preflight as Record<string, unknown> : null;
+                return <article key={snapshot.id}>
+                  <strong>{captureLabel(snapshot)}</strong>
+                  <span>{typeof preflight?.score === 'number' ? `Preflight ${preflight.score}/100` : 'Preflight not reported'}</span>
+                  <div><small>{uploads.length ? `${completed}/${uploads.length} resumable uploads completed` : 'No resumable-upload sessions recorded'}</small></div>
+                </article>;
+              })}
+              {!timeline.length && <p className="muted">Capture readiness and resumable upload telemetry will appear after the first mobile capture.</p>}
             </div>
           </section>
           <section className="progress-card">

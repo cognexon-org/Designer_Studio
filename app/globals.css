@@ -751,3 +751,11 @@ label { font-size: 12px; font-weight: 700; color: var(--ink-2); }
   .spatial-room-grid, .reality-room-grid, .compact-grid, .compare-selectors, .issue-create-row { grid-template-columns: 1fr; }
   .progress-header-meta { width: 100%; justify-content: space-between; }
 }
+
+/* Patch 02 — capture reliability telemetry */
+.capture-health-line {
+  display: block;
+  margin-top: 0.35rem;
+  font-weight: 600;
+  opacity: 0.86;
+}
