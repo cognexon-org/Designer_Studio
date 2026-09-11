@@ -3,7 +3,7 @@ import type {
   CaptureSummary, CatalogueAsset, ClientShareLink, DesignComment, DesignModel, DesignOption, DesignProject,
   EvidenceResponse, ExportFormat, ExportRecord, GeometryProposal, MaterialRecord, MeasurementModel, ModelReview,
   ProcessingJob, ProductRecord, PublicDesignManifest, PublicShareDesign, PanoramaAsset,
-  ProgressProject, ProgressProjectSummary, CaptureSnapshot, ProjectIssue, VisualRegistry } from './types';
+  ProgressProject, ProgressProjectSummary, CaptureSnapshot, ProjectIssue, VisualRegistry, ProgressViewerManifest, ProgressCompareResult, CaptureRegistration, RegistrationAnchor } from './types';
 
 export class ApiError extends Error {
   constructor(public status: number, public payload: unknown) {
@@ -45,7 +45,11 @@ export const api = {
   me: () => request<{ id: string; name?: string; phone: string; role: string; organization: { name: string } }>('/v1/me'),
   listProgressProjects: () => request<ProgressProjectSummary[]>('/v2/progress-projects'),
   getProgressProject: (projectId: string) => request<ProgressProject>(`/v2/progress-projects/${projectId}`),
-  getProgressTimeline: (projectId: string) => request<CaptureSnapshot[]>(`/v2/progress-projects/${projectId}/timeline`),
+  getProgressTimeline: (projectId: string, filters?: { spatialRoomId?: string; sourceType?: string; floorId?: string; from?: string; to?: string; limit?: number }) => request<CaptureSnapshot[]>(`/v2/progress-projects/${projectId}/timeline?${new URLSearchParams(Object.entries(filters ?? {}).filter(([,v]) => v !== undefined).map(([k,v]) => [k, String(v)])).toString()}`),
+  getProgressViewerManifest: (snapshotId: string) => request<ProgressViewerManifest>(`/v2/progress-snapshots/${snapshotId}/viewer-manifest`),
+  compareProgressSnapshots: (projectId: string, sourceSnapshotId: string, targetSnapshotId: string, spatialRoomId?: string) => request<ProgressCompareResult>(`/v2/progress-projects/${projectId}/compare?${new URLSearchParams({ sourceSnapshotId, targetSnapshotId, ...(spatialRoomId ? { spatialRoomId } : {}) }).toString()}`),
+  assistProgressRegistration: (projectId: string, body: { sourceSnapshotId: string; targetSnapshotId: string; anchors: RegistrationAnchor[]; overlap?: number; version?: string }) => request<CaptureRegistration>(`/v2/progress-projects/${projectId}/registrations/assist`, { method: 'POST', body: JSON.stringify(body) }),
+  decideProgressRegistration: (registrationId: string, decision: 'VERIFIED' | 'REJECTED') => request<CaptureRegistration>(`/v2/progress-registrations/${registrationId}/decision`, { method: 'POST', body: JSON.stringify({ decision }) }),
   createProgressIssue: (projectId: string, body: { title: string; description?: string; severity?: string; spatialRoomId?: string; captureSnapshotId?: string }) =>
     request<ProjectIssue>(`/v2/progress-projects/${projectId}/issues`, { method: 'POST', body: JSON.stringify(body) }),
   listProjects: () => request<DesignProject[]>('/v1/design-projects'),

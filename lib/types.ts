@@ -379,6 +379,18 @@ export interface CaptureRegistration {
   createdAt: string;
 }
 
+export interface ProgressViewerManifest {
+  snapshotId: string; projectId: string; capturedAt: string; sourceType: string; expiresInSeconds: number;
+  rooms: Array<{ captureRoomId: string; spatialRoomId?: string | null; name: string; panoramaAssetId?: string | null; panoramaUrl?: string | null }>;
+}
+
+export interface ProgressCompareResult {
+  diff: { sourceSnapshotId: string; targetSnapshotId: string; spatialRoomId?: string | null; boundary: 'INVENTORY_ONLY'; disclaimer: string; roomEvidence: { sourceRooms: number; targetRooms: number; sourcePanoramas: number; targetPanoramas: number }; assetKindDelta: Array<{ kind: string; source: number; target: number; delta: number }> };
+  registration?: CaptureRegistration | null;
+}
+
+export interface RegistrationAnchor { source: [number, number, number]; target: [number, number, number] }
+
 export interface ProjectIssue {
   id: string;
   projectId: string;

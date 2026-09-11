@@ -6,6 +6,8 @@ import { api } from '@/lib/api';
 import type { CaptureSnapshot, ProgressProject, ProjectIssue } from '@/lib/types';
 import { Icon } from './Icon';
 import { StatusBadge } from './StatusBadge';
+import { ProgressTimeline } from './ProgressTimeline';
+import { ProgressCompareWorkspace } from './ProgressCompareWorkspace';
 
 type WorkspaceTab = 'OVERVIEW' | 'TIMELINE' | 'REALITY' | 'DESIGN' | 'COMPARE' | 'ISSUES';
 
@@ -52,6 +54,8 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
   const [issueTitle, setIssueTitle] = useState('');
   const [issueSeverity, setIssueSeverity] = useState('MEDIUM');
   const [issueSaving, setIssueSaving] = useState(false);
+  const [timelineRoomId, setTimelineRoomId] = useState('');
+  const [timelineSourceType, setTimelineSourceType] = useState('');
 
   async function load() {
     setLoading(true);
@@ -102,6 +106,7 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
   const latest = timeline[0];
   const linkedRoomCount = new Set(timeline.flatMap((snapshot) => snapshot.capture.rooms.map((room) => room.spatialRoomId).filter(Boolean))).size;
   const designProjects = timeline.flatMap((snapshot) => snapshot.capture.designProjects ?? []).filter((item, index, all) => all.findIndex((row) => row.id === item.id) === index);
+  const filteredTimeline = timeline.filter((snapshot) => (!timelineSourceType || snapshot.sourceType === timelineSourceType) && (!timelineRoomId || snapshot.capture.rooms.some((room) => room.spatialRoomId === timelineRoomId))); 
 
   return (
     <main className="progress-project-page">
@@ -172,13 +177,7 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
       )}
 
       {tab === 'TIMELINE' && (
-        <section className="progress-card">
-          <div className="progress-section-title"><div><p className="eyebrow">Project history</p><h2>Capture timeline</h2></div><span>{timeline.length} snapshots</span></div>
-          <div className="progress-timeline">
-            {timeline.map((snapshot) => <SnapshotCard key={snapshot.id} snapshot={snapshot}/>) }
-            {!timeline.length && <div className="empty-state"><Icon name="history" size={48}/><h3>No snapshots yet</h3><p>Start a Mode A or Mode B capture from the Android app against this spatial project.</p></div>}
-          </div>
-        </section>
+        <ProgressTimeline snapshots={filteredTimeline} rooms={project.rooms} roomId={timelineRoomId} sourceType={timelineSourceType} onRoom={setTimelineRoomId} onSource={setTimelineSourceType}/>
       )}
 
       {tab === 'REALITY' && (
@@ -201,14 +200,7 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
       )}
 
       {tab === 'COMPARE' && (
-        <section className="progress-card">
-          <div className="progress-section-title"><div><p className="eyebrow">Comparison foundation</p><h2>Reality ↔ Reality / Reality ↔ Design</h2></div></div>
-          <div className="compare-selectors">
-            <label>Earlier snapshot<select value={leftId} onChange={(event) => setLeftId(event.target.value)}><option value="">Select</option>{timeline.map((snapshot) => <option key={snapshot.id} value={snapshot.id}>{captureLabel(snapshot)}</option>)}</select></label>
-            <label>Later snapshot<select value={rightId} onChange={(event) => setRightId(event.target.value)}><option value="">Select</option>{timeline.map((snapshot) => <option key={snapshot.id} value={snapshot.id}>{captureLabel(snapshot)}</option>)}</select></label>
-          </div>
-          {left && right ? <div className="compare-foundation-grid"><SnapshotCard snapshot={left}/><div className="compare-bridge"><Icon name="layers" size={30}/><strong>{registration ? `${Math.round(registration.confidence * 100)}% aligned` : 'Registration pending'}</strong><small>{registration ? `${registration.method} · ${registration.status}` : 'Side-by-side review is safe; synchronized spatial claims wait for a stored transform.'}</small></div><SnapshotCard snapshot={right}/></div> : <div className="notice">Choose two snapshots to inspect comparison readiness.</div>}
-        </section>
+        <ProgressCompareWorkspace projectId={projectId} snapshots={timeline} rooms={project.rooms} onRegistration={(next) => setProject((current) => current ? { ...current, registrations: [next, ...current.registrations.filter((item) => item.id !== next.id)] } : current)}/>
       )}
 
       {tab === 'ISSUES' && (

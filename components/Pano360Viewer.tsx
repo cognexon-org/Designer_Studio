@@ -16,21 +16,27 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
+export interface PanoViewState { yaw: number; pitch: number; fov: number }
+
 interface Props {
   url: string;
   /** Optional label shown while the image streams in. */
   caption?: string;
   className?: string;
+  viewState?: PanoViewState;
+  onViewStateChange?: (state: PanoViewState) => void;
 }
 
 const MIN_FOV = 34;
 const MAX_FOV = 95;
 const DEFAULT_FOV = 74;
 
-export function Pano360Viewer({ url, caption, className }: Props) {
+export function Pano360Viewer({ url, caption, className, viewState, onViewStateChange }: Props) {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
+  const externalViewRef = useRef<PanoViewState | undefined>(viewState);
+  useEffect(() => { externalViewRef.current = viewState; }, [viewState]);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -67,9 +73,10 @@ export function Pano360Viewer({ url, caption, className }: Props) {
     );
 
     /* ---- look state ---- */
-    const look = { yaw: 0, pitch: 0 };
+    const initialView = externalViewRef.current;
+    const look = { yaw: initialView?.yaw ?? 0, pitch: initialView?.pitch ?? 0 };
     const velocity = { yaw: 0, pitch: 0 };
-    let fov = DEFAULT_FOV;
+    let fov = initialView?.fov ?? DEFAULT_FOV;
     let idle = true;               // auto-pan until first interaction
     let pointer: { x: number; y: number } | null = null;
     let lastTap = 0;
@@ -109,11 +116,13 @@ export function Pano360Viewer({ url, caption, className }: Props) {
       // Remember the release velocity for the glide.
       velocity.yaw = -dx * s;
       velocity.pitch = dy * s;
+      onViewStateChange?.({ yaw: look.yaw, pitch: look.pitch, fov });
     };
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       idle = false;
       fov = Math.max(MIN_FOV, Math.min(MAX_FOV, fov + Math.sign(e.deltaY) * 4));
+      onViewStateChange?.({ yaw: look.yaw, pitch: look.pitch, fov });
     };
     const onTouchStart = (e: TouchEvent) => {
       if (e.touches.length === 2) {
@@ -131,6 +140,7 @@ export function Pano360Viewer({ url, caption, className }: Props) {
           e.touches[0].clientY - e.touches[1].clientY
         );
         fov = Math.max(MIN_FOV, Math.min(MAX_FOV, fov * (pinch / d)));
+        onViewStateChange?.({ yaw: look.yaw, pitch: look.pitch, fov });
         pinch = d;
       }
     };
@@ -159,7 +169,9 @@ export function Pano360Viewer({ url, caption, className }: Props) {
     let raf = 0;
     const tick = () => {
       raf = requestAnimationFrame(tick);
-      if (idle) {
+      const external = externalViewRef.current;
+      if (!pointer && external) { look.yaw = external.yaw; look.pitch = external.pitch; fov = external.fov; }
+      if (idle && !external) {
         look.yaw += 0.00085; // slow shop-window drift before first touch
       } else if (!pointer) {
         // damped glide after release
@@ -196,7 +208,7 @@ export function Pano360Viewer({ url, caption, className }: Props) {
       renderer.dispose();
       if (renderer.domElement.parentElement === host) host.removeChild(renderer.domElement);
     };
-  }, [url]);
+  }, [url, onViewStateChange]);
 
   return (
     <div className={`pano360 ${className ?? ''}`} ref={hostRef}>
