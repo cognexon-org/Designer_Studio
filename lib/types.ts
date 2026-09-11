@@ -485,9 +485,46 @@ export interface AiObservation {
   confidence: number;
   modelVersion?: string | null;
   policyVersion?: string | null;
+  analysisRunId?: string | null;
   status: 'PROPOSED' | 'CONFIRMED' | 'REJECTED' | 'CORRECTED' | string;
   createdAt: string;
   decisions?: ObservationDecision[];
+}
+
+export type ProgressChangeType = 'ADDED' | 'REMOVED' | 'MOVED' | 'SURFACE_CHANGED' | 'APPEARANCE_CHANGED' | 'GEOMETRY_CHANGED' | 'UNCERTAIN';
+export type ProgressSemanticHint = 'WALL' | 'PARTITION_WALL' | 'FLOORING' | 'CEILING' | 'DOOR' | 'WINDOW' | 'ELECTRICAL' | 'PLUMBING' | 'FIXTURE' | 'FURNITURE' | 'SURFACE' | 'OPENING' | 'UNKNOWN';
+
+export interface ProgressDifferenceRegion {
+  id: string;
+  changeType: ProgressChangeType;
+  semanticHint: ProgressSemanticHint;
+  spatialRef?: Record<string, unknown>;
+  magnitude?: Record<string, unknown>;
+  geometricConfidence: number;
+  semanticConfidence?: number;
+  evidenceRefs: string[];
+}
+
+export interface ProgressAnalysisRun {
+  id: string;
+  projectId: string;
+  sourceSnapshotId: string;
+  targetSnapshotId: string;
+  registrationId: string;
+  spatialRoomId?: string | null;
+  status: 'QUEUED' | 'RUNNING' | 'SUCCEEDED' | 'FAILED' | string;
+  engineVersion: string;
+  modelVersion?: string | null;
+  policyVersion: string;
+  inputRegions: ProgressDifferenceRegion[];
+  diagnostics?: Record<string, unknown> | null;
+  jobId?: string | null;
+  createdById: string;
+  createdAt: string;
+  startedAt?: string | null;
+  completedAt?: string | null;
+  error?: string | null;
+  observations: AiObservation[];
 }
 
 export interface ProgressReportContent {
@@ -520,7 +557,7 @@ export interface ProgressProjectSummary {
   unit: UnitSummary;
   floors: SpatialFloorSummary[];
   rooms: SpatialRoomSummary[];
-  _count?: { snapshots: number; issues: number; observations: number };
+  _count?: { snapshots: number; issues: number; observations: number; analysisRuns?: number };
   createdAt: string;
   updatedAt: string;
 }
@@ -530,6 +567,7 @@ export interface ProgressProject extends ProgressProjectSummary {
   registrations: CaptureRegistration[];
   issues: ProjectIssue[];
   observations: AiObservation[];
+  analysisRuns: ProgressAnalysisRun[];
   reports: ProjectReport[];
   designRealityAlignments: DesignRealityAlignment[];
 }

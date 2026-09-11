@@ -11,8 +11,9 @@ import { ProgressCompareWorkspace } from './ProgressCompareWorkspace';
 import { DesignRealityWorkspace } from './DesignRealityWorkspace';
 import { ProgressIssuesWorkspace } from './ProgressIssuesWorkspace';
 import { ProgressReportsWorkspace } from './ProgressReportsWorkspace';
+import { ProgressIntelligenceWorkspace } from './ProgressIntelligenceWorkspace';
 
-type WorkspaceTab = 'OVERVIEW' | 'TIMELINE' | 'REALITY' | 'DESIGN' | 'DESIGN_REALITY' | 'COMPARE' | 'ISSUES' | 'REPORTS';
+type WorkspaceTab = 'OVERVIEW' | 'TIMELINE' | 'REALITY' | 'DESIGN' | 'DESIGN_REALITY' | 'COMPARE' | 'INTELLIGENCE' | 'ISSUES' | 'REPORTS';
 
 function fmt(value?: string | null) {
   if (!value) return '—';
@@ -113,7 +114,7 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
       {error && <div className="notice notice-error"><Icon name="warning"/>{error}</div>}
 
       <nav className="progress-tabs" aria-label="Project Studio sections">
-        {(['OVERVIEW','TIMELINE','REALITY','DESIGN','DESIGN_REALITY','COMPARE','ISSUES','REPORTS'] as WorkspaceTab[]).map((item) => (
+        {(['OVERVIEW','TIMELINE','REALITY','DESIGN','DESIGN_REALITY','COMPARE','INTELLIGENCE','ISSUES','REPORTS'] as WorkspaceTab[]).map((item) => (
           <button key={item} className={tab === item ? 'active' : ''} onClick={() => setTab(item)}>{item === 'DESIGN_REALITY' ? 'Design ↔ Reality' : item[0] + item.slice(1).toLowerCase()}</button>
         ))}
       </nav>
@@ -124,7 +125,7 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
             <article><span>Snapshots</span><strong>{timeline.length}</strong><small>Mode A + Mode B history</small></article>
             <article><span>Spatial rooms</span><strong>{project.rooms.length}</strong><small>{linkedRoomCount} seen in captures</small></article>
             <article><span>Open issues</span><strong>{project.issues.filter((issue) => issue.status === 'OPEN').length}</strong><small>Human-owned project state</small></article>
-            <article><span>AI observations</span><strong>{project.observations.length}</strong><small>Proposed until verified</small></article>
+            <article><span>AI observations</span><strong>{project.observations.length}</strong><small>{project.analysisRuns?.length ?? 0} analysis runs · proposed until verified</small></article>
           </div>
           <section className="progress-card">
             <div className="progress-section-title"><div><p className="eyebrow">Unified spatial identity</p><h2>Floors and rooms</h2></div></div>
@@ -199,6 +200,24 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
 
       {tab === 'COMPARE' && (
         <ProgressCompareWorkspace projectId={projectId} snapshots={timeline} rooms={project.rooms} onRegistration={(next) => setProject((current) => current ? { ...current, registrations: [next, ...current.registrations.filter((item) => item.id !== next.id)] } : current)}/>
+      )}
+
+      {tab === 'INTELLIGENCE' && (
+        <ProgressIntelligenceWorkspace
+          projectId={projectId}
+          snapshots={timeline}
+          rooms={project.rooms}
+          registrations={project.registrations}
+          initialRuns={project.analysisRuns ?? []}
+          onRunsChanged={(analysisRuns) => setProject((current) => current ? { ...current, analysisRuns } : current)}
+          onObservationsChanged={(changed) => setProject((current) => current ? {
+            ...current,
+            observations: [
+              ...changed,
+              ...current.observations.filter((item) => !changed.some((next) => next.id === item.id))
+            ]
+          } : current)}
+        />
       )}
 
       {tab === 'ISSUES' && (

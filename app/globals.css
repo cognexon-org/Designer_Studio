@@ -846,3 +846,37 @@ label { font-size: 12px; font-weight: 700; color: var(--ink-2); }
 
 /* Patch 06 — Issues, human verification and reports */
 .issue-create-grid,.issue-filter-row,.issue-meta-grid,.report-builder-row{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));align-items:end}.issue-create-grid input,.issue-create-grid select,.issue-filter-row select,.issue-meta-grid input,.issue-meta-grid select,.report-builder-row input,.report-builder-row select,.issue-comment-row textarea{width:100%;border:1px solid var(--border,#d7dde5);border-radius:10px;background:var(--panel,#fff);color:inherit;padding:10px 12px}.issue-filter-row{margin-top:14px}.issue-workspace-grid,.report-layout{display:grid;grid-template-columns:minmax(260px,.8fr) minmax(420px,1.8fr);gap:16px}.issue-register-list,.report-list{display:flex;flex-direction:column;gap:8px;align-self:start}.issue-register-card,.report-list button{appearance:none;text-align:left;border:1px solid var(--border,#d7dde5);background:transparent;border-radius:12px;padding:12px;color:inherit;display:flex;flex-direction:column;gap:6px;cursor:pointer}.issue-register-card.active,.report-list button.active{border-color:#2b8a78;box-shadow:0 0 0 2px rgba(43,138,120,.12)}.issue-register-card>div{display:flex;gap:8px;align-items:center}.issue-register-card p{margin:0;color:var(--muted,#667085)}.issue-inspector{min-width:0}.issue-meta-grid{margin:16px 0}.issue-meta-grid label,.report-builder-row label{display:flex;flex-direction:column;gap:6px;font-size:.82rem;color:var(--muted,#667085)}.verification-actions,.report-actions{display:flex;gap:8px;flex-wrap:wrap}.issue-comment-row{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:16px}.issue-comment-row textarea{min-height:86px;resize:vertical}.issue-event-list,.evidence-ref-list{margin-top:18px}.issue-event-list article{border-left:3px solid var(--border,#d7dde5);padding:8px 12px;margin:8px 0}.issue-event-list article span{float:right;color:var(--muted,#667085);font-size:.8rem}.issue-event-list article p{margin:.35rem 0 0}.evidence-ref-list{display:flex;flex-direction:column;gap:6px}.evidence-ref-list code{font-size:.78rem;overflow-wrap:anywhere;background:rgba(127,127,127,.08);padding:7px;border-radius:7px}.observation-review-list{display:flex;flex-direction:column;gap:8px}.observation-review-list article{display:flex;justify-content:space-between;gap:16px;align-items:center;border:1px solid var(--border,#d7dde5);border-radius:10px;padding:12px}.observation-review-list article p{margin:.2rem 0 0;color:var(--muted,#667085)}.observation-review-list article>div:last-child{display:flex;gap:8px}.report-list button span,.report-list button small{color:var(--muted,#667085)}.report-preview{min-width:0}.report-stats{margin:18px 0}.report-section{margin-top:20px;border-top:1px solid var(--border,#d7dde5);padding-top:14px}.report-section article{border:1px solid var(--border,#d7dde5);border-radius:10px;padding:10px 12px;margin:8px 0}.report-section article>div{display:flex;gap:8px;align-items:center}.report-section article p{margin:.35rem 0 0;color:var(--muted,#667085)}.report-section.proposed{opacity:.78}.report-disclaimer{margin-top:22px;padding:14px;border-radius:10px;background:rgba(236,166,44,.10);border:1px solid rgba(236,166,44,.28)}.report-disclaimer p{margin:.4rem 0 0}.severity{display:inline-flex;align-items:center;border-radius:999px;padding:3px 7px;font-size:.7rem;font-weight:700;letter-spacing:.04em}.severity-critical,.severity-high{background:rgba(220,53,69,.12);color:#b42318}.severity-medium{background:rgba(245,158,11,.14);color:#b54708}.severity-low,.severity-info{background:rgba(43,138,120,.12);color:#137a66}@media(max-width:900px){.issue-workspace-grid,.report-layout{grid-template-columns:1fr}.issue-comment-row{grid-template-columns:1fr}.observation-review-list article{align-items:flex-start;flex-direction:column}}@media print{.progress-tabs,.progress-project-header .button,.report-builder-row,.report-list,.report-actions{display:none!important}.report-layout{display:block}.report-preview{border:none!important;box-shadow:none!important}.progress-project-page{padding:0!important}.report-disclaimer{break-inside:avoid}}
+
+/* Patch 07 — AI Progress Intelligence */
+.intelligence-workspace select,
+.intelligence-workspace input { width: 100%; margin-top: 6px; }
+.intelligence-pair-grid,
+.intelligence-region-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.intelligence-pair-grid label,
+.intelligence-region-grid label { font-size: 12px; color: var(--muted, #64748b); }
+.registration-gate { margin-top: 14px; border-radius: 10px; padding: 10px 12px; font-size: 13px; font-weight: 600; }
+.registration-gate.verified { background: rgba(16,185,129,.10); border: 1px solid rgba(16,185,129,.35); }
+.registration-gate.blocked { background: rgba(245,158,11,.10); border: 1px solid rgba(245,158,11,.35); }
+.intelligence-region-list,
+.analysis-run-list { display: grid; gap: 12px; margin: 14px 0; }
+.intelligence-region,
+.analysis-run-card,
+.observation-card { border: 1px solid var(--border, #dbe3ea); border-radius: 12px; padding: 14px; background: var(--panel, #fff); }
+.intelligence-region-head,
+.analysis-run-head,
+.observation-title,
+.confidence-line,
+.observation-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.analysis-run-head small { display: block; margin-top: 3px; color: var(--muted, #64748b); }
+.observation-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 12px; }
+.observation-card { background: rgba(248,250,252,.75); }
+.confidence-line { margin: 12px 0 6px; }
+.uncertainty-list { margin: 10px 0; padding-left: 18px; color: var(--muted, #64748b); font-size: 12px; }
+.observation-actions { justify-content: flex-end; margin-top: 12px; }
+.truth-boundary { margin-top: 14px; padding: 10px 12px; border-left: 3px solid #f59e0b; background: rgba(245,158,11,.08); font-size: 12px; }
+.text-button { border: 0; background: transparent; color: inherit; text-decoration: underline; cursor: pointer; }
+@media (max-width: 900px) {
+  .intelligence-pair-grid,
+  .intelligence-region-grid,
+  .observation-grid { grid-template-columns: 1fr; }
+}

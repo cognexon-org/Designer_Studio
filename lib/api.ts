@@ -4,7 +4,7 @@ import type {
   EvidenceResponse, ExportFormat, ExportRecord, GeometryProposal, MaterialRecord, MeasurementModel, ModelReview,
   ProcessingJob, ProductRecord, PublicDesignManifest, PublicShareDesign, PanoramaAsset,
   ProgressProject, ProgressProjectSummary, CaptureSnapshot, ProjectIssue, VisualRegistry, ProgressViewerManifest, ProgressCompareResult, CaptureRegistration, RegistrationAnchor,
-  DesignRealityAlignment, DesignRealityEvaluation, ProgressDesignIntent, ProgressTeamMember, ProjectReport, IssueEvent, AiObservation } from './types';
+  DesignRealityAlignment, DesignRealityEvaluation, ProgressDesignIntent, ProgressTeamMember, ProjectReport, IssueEvent, AiObservation, ProgressAnalysisRun, ProgressDifferenceRegion } from './types';
 
 export class ApiError extends Error {
   constructor(public status: number, public payload: unknown) {
@@ -62,6 +62,9 @@ export const api = {
   addProgressIssueEvent: (issueId: string, body: { eventType: 'COMMENT' | 'RESOLUTION_NOTE' | 'EVIDENCE_NOTE'; note: string; payload?: Record<string, unknown> }) => request<IssueEvent>(`/v2/progress-issues/${issueId}/events`, { method: 'POST', body: JSON.stringify(body) }),
   decideProgressIssue: (issueId: string, body: { decision: 'VERIFIED' | 'REJECTED' | 'CORRECTED'; note?: string; correctedValue?: Record<string, unknown> }) => request<ProjectIssue>(`/v2/progress-issues/${issueId}/decision`, { method: 'POST', body: JSON.stringify(body) }),
   decideProgressObservation: (observationId: string, body: { decision: 'CONFIRMED' | 'REJECTED' | 'CORRECTED'; correctedValue?: Record<string, unknown>; note?: string }) => request<{ id: string }>(`/v2/progress-observations/${observationId}/decision`, { method: 'POST', body: JSON.stringify(body) }),
+  listProgressAnalysisRuns: (projectId: string, limit = 25) => request<ProgressAnalysisRun[]>(`/v2/progress-projects/${projectId}/analysis-runs?limit=${limit}`),
+  getProgressAnalysisRun: (runId: string) => request<ProgressAnalysisRun>(`/v2/progress-analysis-runs/${runId}`),
+  createProgressAnalysisRun: (projectId: string, body: { sourceSnapshotId: string; targetSnapshotId: string; registrationId?: string; spatialRoomId?: string; regions: ProgressDifferenceRegion[]; policy?: { minConfidence?: number; includeUncertainRegions?: boolean }; engineVersion?: string; modelVersion?: string; policyVersion?: string }) => request<ProgressAnalysisRun & { processingJobId?: string }>(`/v2/progress-projects/${projectId}/analysis-runs`, { method: 'POST', body: JSON.stringify(body) }),
   getProgressTeam: (projectId: string) => request<ProgressTeamMember[]>(`/v2/progress-projects/${projectId}/team`),
   listProgressReports: (projectId: string) => request<ProjectReport[]>(`/v2/progress-projects/${projectId}/reports`),
   createProgressReport: (projectId: string, body: { reportType?: 'WEEKLY' | 'MILESTONE' | 'HANDOVER' | 'CUSTOM'; label?: string; periodStart?: string; periodEnd?: string }) => request<ProjectReport>(`/v2/progress-projects/${projectId}/reports`, { method: 'POST', body: JSON.stringify(body) }),
