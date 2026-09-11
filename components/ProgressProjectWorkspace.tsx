@@ -3,14 +3,16 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { api } from '@/lib/api';
-import type { CaptureSnapshot, ProgressProject, ProjectIssue } from '@/lib/types';
+import type { CaptureSnapshot, ProgressProject } from '@/lib/types';
 import { Icon } from './Icon';
 import { StatusBadge } from './StatusBadge';
 import { ProgressTimeline } from './ProgressTimeline';
 import { ProgressCompareWorkspace } from './ProgressCompareWorkspace';
 import { DesignRealityWorkspace } from './DesignRealityWorkspace';
+import { ProgressIssuesWorkspace } from './ProgressIssuesWorkspace';
+import { ProgressReportsWorkspace } from './ProgressReportsWorkspace';
 
-type WorkspaceTab = 'OVERVIEW' | 'TIMELINE' | 'REALITY' | 'DESIGN' | 'DESIGN_REALITY' | 'COMPARE' | 'ISSUES';
+type WorkspaceTab = 'OVERVIEW' | 'TIMELINE' | 'REALITY' | 'DESIGN' | 'DESIGN_REALITY' | 'COMPARE' | 'ISSUES' | 'REPORTS';
 
 function fmt(value?: string | null) {
   if (!value) return '—';
@@ -52,9 +54,6 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
   const [error, setError] = useState<string | null>(null);
   const [leftId, setLeftId] = useState('');
   const [rightId, setRightId] = useState('');
-  const [issueTitle, setIssueTitle] = useState('');
-  const [issueSeverity, setIssueSeverity] = useState('MEDIUM');
-  const [issueSaving, setIssueSaving] = useState(false);
   const [timelineRoomId, setTimelineRoomId] = useState('');
   const [timelineSourceType, setTimelineSourceType] = useState('');
 
@@ -86,19 +85,6 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
     (item.sourceSnapshotId === rightId && item.targetSnapshotId === leftId)
   ), [project, leftId, rightId]);
 
-  async function addIssue() {
-    if (!issueTitle.trim()) return;
-    setIssueSaving(true);
-    try {
-      const issue = await api.createProgressIssue(projectId, { title: issueTitle.trim(), severity: issueSeverity });
-      setProject((current) => current ? { ...current, issues: [issue, ...current.issues] } : current);
-      setIssueTitle('');
-    } catch (caught) {
-      setError(caught instanceof Error ? caught.message : 'Unable to create issue.');
-    } finally {
-      setIssueSaving(false);
-    }
-  }
 
   if (loading) return <div className="progress-loading"><Icon name="spinner" className="spin"/><span>Loading Project Studio…</span></div>;
   if (error && !project) return <div className="progress-loading"><Icon name="warning"/><span>{error}</span><button className="button" onClick={() => void load()}>Retry</button></div>;
@@ -127,7 +113,7 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
       {error && <div className="notice notice-error"><Icon name="warning"/>{error}</div>}
 
       <nav className="progress-tabs" aria-label="Project Studio sections">
-        {(['OVERVIEW','TIMELINE','REALITY','DESIGN','DESIGN_REALITY','COMPARE','ISSUES'] as WorkspaceTab[]).map((item) => (
+        {(['OVERVIEW','TIMELINE','REALITY','DESIGN','DESIGN_REALITY','COMPARE','ISSUES','REPORTS'] as WorkspaceTab[]).map((item) => (
           <button key={item} className={tab === item ? 'active' : ''} onClick={() => setTab(item)}>{item === 'DESIGN_REALITY' ? 'Design ↔ Reality' : item[0] + item.slice(1).toLowerCase()}</button>
         ))}
       </nav>
@@ -216,17 +202,22 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
       )}
 
       {tab === 'ISSUES' && (
-        <section className="progress-panel-stack">
-          <section className="progress-card">
-            <div className="progress-section-title"><div><p className="eyebrow">Human-owned truth</p><h2>Create issue</h2></div></div>
-            <div className="issue-create-row"><input value={issueTitle} onChange={(event) => setIssueTitle(event.target.value)} placeholder="e.g. East window opening needs site verification"/><select value={issueSeverity} onChange={(event) => setIssueSeverity(event.target.value)}><option>INFO</option><option>LOW</option><option>MEDIUM</option><option>HIGH</option><option>CRITICAL</option></select><button className="button button-primary" disabled={!issueTitle.trim() || issueSaving} onClick={() => void addIssue()}>{issueSaving ? 'Saving…' : 'Add issue'}</button></div>
-          </section>
-          <section className="progress-card">
-            <div className="progress-section-title"><div><p className="eyebrow">Issue register</p><h2>{project.issues.length} issues</h2></div></div>
-            <div className="issue-list">{project.issues.map((issue: ProjectIssue) => <article key={issue.id}><div><strong>{issue.title}</strong><p>{issue.description || 'No description'}</p></div><div><span className={`severity severity-${issue.severity.toLowerCase()}`}>{issue.severity}</span><small>{issue.status}</small></div></article>)}{!project.issues.length && <p className="muted">No issues recorded yet.</p>}</div>
-          </section>
-        </section>
+        <ProgressIssuesWorkspace
+          projectId={projectId}
+          issues={project.issues}
+          observations={project.observations}
+          rooms={project.rooms}
+          onIssuesChanged={(issues) => setProject((current) => current ? { ...current, issues } : current)}
+          onObservationsChanged={(observations) => setProject((current) => current ? { ...current, observations } : current)}
+        />
       )}
-    </main>
+
+      {tab === 'REPORTS' && (
+        <ProgressReportsWorkspace
+          projectId={projectId}
+          initialReports={project.reports ?? []}
+          onReportsChanged={(reports) => setProject((current) => current ? { ...current, reports } : current)}
+        />
+      )}    </main>
   );
 }

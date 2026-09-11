@@ -429,6 +429,18 @@ export interface DesignRealityAlignment {
   status: string; verifiedById?: string | null; createdAt: string; updatedAt: string; evaluations?: DesignRealityEvaluation[];
 }
 
+export interface IssueEvent {
+  id: string;
+  issueId: string;
+  actorId: string;
+  eventType: 'CREATED' | 'UPDATED' | 'STATUS_CHANGED' | 'COMMENT' | 'RESOLUTION_NOTE' | 'EVIDENCE_NOTE' | 'VERIFICATION_DECISION' | string;
+  fromStatus?: string | null;
+  toStatus?: string | null;
+  note?: string | null;
+  payload?: Record<string, unknown> | null;
+  createdAt: string;
+}
+
 export interface ProjectIssue {
   id: string;
   projectId: string;
@@ -437,14 +449,28 @@ export interface ProjectIssue {
   spatialRef?: Record<string, unknown> | null;
   title: string;
   description?: string | null;
-  status: string;
-  severity: string;
+  status: 'OPEN' | 'IN_REVIEW' | 'RESOLVED' | 'REJECTED' | string;
+  severity: 'INFO' | 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL' | string;
   assigneeId?: string | null;
-  verification?: string | null;
+  dueAt?: string | null;
+  resolvedAt?: string | null;
+  closedById?: string | null;
+  verification: 'UNVERIFIED' | 'VERIFIED' | 'REJECTED' | 'CORRECTED' | string;
   evidenceRefs?: string[] | null;
   createdById: string;
   createdAt: string;
   updatedAt: string;
+  events?: IssueEvent[];
+}
+
+export interface ObservationDecision {
+  id: string;
+  observationId: string;
+  actorId: string;
+  decision: 'CONFIRMED' | 'REJECTED' | 'CORRECTED' | string;
+  correctedValue?: Record<string, unknown> | null;
+  note?: string | null;
+  createdAt: string;
 }
 
 export interface AiObservation {
@@ -461,7 +487,29 @@ export interface AiObservation {
   policyVersion?: string | null;
   status: 'PROPOSED' | 'CONFIRMED' | 'REJECTED' | 'CORRECTED' | string;
   createdAt: string;
+  decisions?: ObservationDecision[];
 }
+
+export interface ProgressReportContent {
+  schemaVersion: 1;
+  generatedAt: string;
+  reportBoundary: string;
+  disclaimerVersion: string;
+  disclaimer: string;
+  project: { id: string; name: string; unitLabel?: string; propertyName?: string };
+  period: { start?: string | null; end?: string | null; label?: string | null };
+  counts: { snapshots: number; issues: number; openIssues: number; resolvedIssues: number; rejectedIssues: number; verifiedIssues: number; verifiedObservations: number; proposedObservations: number; rejectedObservations: number };
+  captures: Array<{ id: string; capturedAt: string | null; sourceType: string; status: string }>;
+  issues: Array<{ id: string; title: string; status: string; severity: string; verification: string; spatialRoomId?: string | null; assigneeId?: string | null; dueAt?: string | null; evidenceRefs: string[]; updatedAt: string | null }>;
+  verifiedObservations: Array<{ id: string; observationType: string; status: string; confidence: number; spatialRoomId?: string | null; sourceSnapshotId?: string | null; targetSnapshotId?: string | null; createdAt: string | null }>;
+  proposedObservations: Array<{ id: string; observationType: string; confidence: number; spatialRoomId?: string | null; sourceSnapshotId?: string | null; targetSnapshotId?: string | null; createdAt: string | null }>;
+}
+
+export interface ProjectReport {
+  id: string; projectId: string; reportType: string; label?: string | null; periodStart?: string | null; periodEnd?: string | null; schemaVersion: number; disclaimerVersion: string; content: ProgressReportContent; generatedById: string; createdAt: string;
+}
+
+export interface ProgressTeamMember { id: string; name?: string | null; phone: string; role: string }
 
 export interface ProgressProjectSummary {
   id: string;
@@ -482,5 +530,6 @@ export interface ProgressProject extends ProgressProjectSummary {
   registrations: CaptureRegistration[];
   issues: ProjectIssue[];
   observations: AiObservation[];
+  reports: ProjectReport[];
   designRealityAlignments: DesignRealityAlignment[];
 }

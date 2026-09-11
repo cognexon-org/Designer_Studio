@@ -4,7 +4,7 @@ import type {
   EvidenceResponse, ExportFormat, ExportRecord, GeometryProposal, MaterialRecord, MeasurementModel, ModelReview,
   ProcessingJob, ProductRecord, PublicDesignManifest, PublicShareDesign, PanoramaAsset,
   ProgressProject, ProgressProjectSummary, CaptureSnapshot, ProjectIssue, VisualRegistry, ProgressViewerManifest, ProgressCompareResult, CaptureRegistration, RegistrationAnchor,
-  DesignRealityAlignment, DesignRealityEvaluation, ProgressDesignIntent } from './types';
+  DesignRealityAlignment, DesignRealityEvaluation, ProgressDesignIntent, ProgressTeamMember, ProjectReport, IssueEvent, AiObservation } from './types';
 
 export class ApiError extends Error {
   constructor(public status: number, public payload: unknown) {
@@ -55,8 +55,17 @@ export const api = {
   compareProgressSnapshots: (projectId: string, sourceSnapshotId: string, targetSnapshotId: string, spatialRoomId?: string) => request<ProgressCompareResult>(`/v2/progress-projects/${projectId}/compare?${new URLSearchParams({ sourceSnapshotId, targetSnapshotId, ...(spatialRoomId ? { spatialRoomId } : {}) }).toString()}`),
   assistProgressRegistration: (projectId: string, body: { sourceSnapshotId: string; targetSnapshotId: string; anchors: RegistrationAnchor[]; overlap?: number; version?: string }) => request<CaptureRegistration>(`/v2/progress-projects/${projectId}/registrations/assist`, { method: 'POST', body: JSON.stringify(body) }),
   decideProgressRegistration: (registrationId: string, decision: 'VERIFIED' | 'REJECTED') => request<CaptureRegistration>(`/v2/progress-registrations/${registrationId}/decision`, { method: 'POST', body: JSON.stringify({ decision }) }),
-  createProgressIssue: (projectId: string, body: { title: string; description?: string; severity?: string; spatialRoomId?: string; captureSnapshotId?: string; spatialRef?: Record<string, unknown>; evidenceRefs?: string[] }) =>
+  createProgressIssue: (projectId: string, body: { title: string; description?: string; severity?: string; spatialRoomId?: string; captureSnapshotId?: string; spatialRef?: Record<string, unknown>; assigneeId?: string; dueAt?: string; evidenceRefs?: string[] }) =>
     request<ProjectIssue>(`/v2/progress-projects/${projectId}/issues`, { method: 'POST', body: JSON.stringify(body) }),
+  listProgressIssues: (projectId: string, filters?: { status?: string; severity?: string; spatialRoomId?: string; assigneeId?: string }) => request<ProjectIssue[]>(`/v2/progress-projects/${projectId}/issues?${new URLSearchParams(Object.entries(filters ?? {}).filter(([,v]) => v).map(([k,v]) => [k, String(v)])).toString()}`),
+  updateProgressIssue: (issueId: string, body: { title?: string; description?: string | null; severity?: string; status?: 'OPEN' | 'IN_REVIEW' | 'RESOLVED' | 'REJECTED'; assigneeId?: string | null; dueAt?: string | null; note?: string }) => request<ProjectIssue>(`/v2/progress-issues/${issueId}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  addProgressIssueEvent: (issueId: string, body: { eventType: 'COMMENT' | 'RESOLUTION_NOTE' | 'EVIDENCE_NOTE'; note: string; payload?: Record<string, unknown> }) => request<IssueEvent>(`/v2/progress-issues/${issueId}/events`, { method: 'POST', body: JSON.stringify(body) }),
+  decideProgressIssue: (issueId: string, body: { decision: 'VERIFIED' | 'REJECTED' | 'CORRECTED'; note?: string; correctedValue?: Record<string, unknown> }) => request<ProjectIssue>(`/v2/progress-issues/${issueId}/decision`, { method: 'POST', body: JSON.stringify(body) }),
+  decideProgressObservation: (observationId: string, body: { decision: 'CONFIRMED' | 'REJECTED' | 'CORRECTED'; correctedValue?: Record<string, unknown>; note?: string }) => request<{ id: string }>(`/v2/progress-observations/${observationId}/decision`, { method: 'POST', body: JSON.stringify(body) }),
+  getProgressTeam: (projectId: string) => request<ProgressTeamMember[]>(`/v2/progress-projects/${projectId}/team`),
+  listProgressReports: (projectId: string) => request<ProjectReport[]>(`/v2/progress-projects/${projectId}/reports`),
+  createProgressReport: (projectId: string, body: { reportType?: 'WEEKLY' | 'MILESTONE' | 'HANDOVER' | 'CUSTOM'; label?: string; periodStart?: string; periodEnd?: string }) => request<ProjectReport>(`/v2/progress-projects/${projectId}/reports`, { method: 'POST', body: JSON.stringify(body) }),
+  getProgressReport: (reportId: string) => request<ProjectReport>(`/v2/progress-reports/${reportId}`),
   listProjects: () => request<DesignProject[]>('/v1/design-projects'),
   getProject: (projectId: string) => request<DesignProject>(`/v1/design-projects/${projectId}`),
   listCaptures: () => request<CaptureSummary[]>('/v1/captures'),
