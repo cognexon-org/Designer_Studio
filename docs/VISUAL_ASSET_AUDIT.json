@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-11T14:49:26.700Z",
-  "root": "/mnt/data/patch03_work/Designer_Studio-main/public/assets/realistic",
+  "generatedAt": "2026-09-11T15:18:05.231Z",
+  "root": "/mnt/data/patch03a_work/Designer_Studio-main/public/assets/realistic",
   "budgets": {
     "modelBytes": 2097152,
     "modelTriangles": 120000,
@@ -9,14 +9,44 @@
     "environmentBytes": 4194304
   },
   "summary": {
-    "models": 21,
+    "models": 60,
     "textures": 74,
     "environments": 1,
-    "totalBytes": 9480454,
-    "totalMiB": 9.04,
+    "totalBytes": 10194886,
+    "totalMiB": 9.72,
     "warnings": 2
   },
   "models": [
+    {
+      "path": "models/accent_chair.glb",
+      "bytes": 20132,
+      "triangles": 1284
+    },
+    {
+      "path": "models/accent_chair_low.glb",
+      "bytes": 11472,
+      "triangles": 484
+    },
+    {
+      "path": "models/accent_chair_medium.glb",
+      "bytes": 18388,
+      "triangles": 1092
+    },
+    {
+      "path": "models/bar_stool.glb",
+      "bytes": 35520,
+      "triangles": 2176
+    },
+    {
+      "path": "models/bar_stool_low.glb",
+      "bytes": 11884,
+      "triangles": 544
+    },
+    {
+      "path": "models/bar_stool_medium.glb",
+      "bytes": 22556,
+      "triangles": 1360
+    },
     {
       "path": "models/bed.glb",
       "bytes": 7804,
@@ -24,13 +54,33 @@
     },
     {
       "path": "models/bed_queen.glb",
-      "bytes": 7732,
-      "triangles": 576
+      "bytes": 30328,
+      "triangles": 2144
+    },
+    {
+      "path": "models/bed_queen_low.glb",
+      "bytes": 16700,
+      "triangles": 704
+    },
+    {
+      "path": "models/bed_queen_medium.glb",
+      "bytes": 23620,
+      "triangles": 1312
     },
     {
       "path": "models/chair.glb",
-      "bytes": 8372,
-      "triangles": 480
+      "bytes": 17856,
+      "triangles": 1196
+    },
+    {
+      "path": "models/chair_low.glb",
+      "bytes": 9196,
+      "triangles": 396
+    },
+    {
+      "path": "models/chair_medium.glb",
+      "bytes": 16112,
+      "triangles": 1004
     },
     {
       "path": "models/coffee_table.glb",
@@ -54,13 +104,53 @@
     },
     {
       "path": "models/dining_table.glb",
-      "bytes": 6372,
-      "triangles": 288
+      "bytes": 6344,
+      "triangles": 220
+    },
+    {
+      "path": "models/dining_table_low.glb",
+      "bytes": 6344,
+      "triangles": 220
+    },
+    {
+      "path": "models/dining_table_medium.glb",
+      "bytes": 6344,
+      "triangles": 220
+    },
+    {
+      "path": "models/freestanding_tub.glb",
+      "bytes": 20872,
+      "triangles": 1560
+    },
+    {
+      "path": "models/freestanding_tub_low.glb",
+      "bytes": 9912,
+      "triangles": 472
+    },
+    {
+      "path": "models/freestanding_tub_medium.glb",
+      "bytes": 19432,
+      "triangles": 1480
     },
     {
       "path": "models/fridge.glb",
       "bytes": 8044,
       "triangles": 480
+    },
+    {
+      "path": "models/king_bed.glb",
+      "bytes": 30360,
+      "triangles": 2188
+    },
+    {
+      "path": "models/king_bed_low.glb",
+      "bytes": 16728,
+      "triangles": 748
+    },
+    {
+      "path": "models/king_bed_medium.glb",
+      "bytes": 23648,
+      "triangles": 1356
     },
     {
       "path": "models/kitchen_counter.glb",
@@ -73,6 +163,21 @@
       "triangles": 560
     },
     {
+      "path": "models/kitchen_island.glb",
+      "bytes": 14676,
+      "triangles": 608
+    },
+    {
+      "path": "models/kitchen_island_low.glb",
+      "bytes": 13800,
+      "triangles": 512
+    },
+    {
+      "path": "models/kitchen_island_medium.glb",
+      "bytes": 13800,
+      "triangles": 512
+    },
+    {
       "path": "models/lamp.glb",
       "bytes": 38384,
       "triangles": 1960
@@ -83,9 +188,64 @@
       "triangles": 496
     },
     {
+      "path": "models/pendant_light.glb",
+      "bytes": 16772,
+      "triangles": 704
+    },
+    {
+      "path": "models/pendant_light_low.glb",
+      "bytes": 7736,
+      "triangles": 224
+    },
+    {
+      "path": "models/pendant_light_medium.glb",
+      "bytes": 13648,
+      "triangles": 544
+    },
+    {
       "path": "models/plant.glb",
-      "bytes": 47028,
-      "triangles": 5296
+      "bytes": 68804,
+      "triangles": 7440
+    },
+    {
+      "path": "models/plant_low.glb",
+      "bytes": 15232,
+      "triangles": 816
+    },
+    {
+      "path": "models/plant_medium.glb",
+      "bytes": 22888,
+      "triangles": 1360
+    },
+    {
+      "path": "models/round_dining_table.glb",
+      "bytes": 29824,
+      "triangles": 1728
+    },
+    {
+      "path": "models/round_dining_table_low.glb",
+      "bytes": 4412,
+      "triangles": 192
+    },
+    {
+      "path": "models/round_dining_table_medium.glb",
+      "bytes": 5856,
+      "triangles": 336
+    },
+    {
+      "path": "models/sectional_sofa.glb",
+      "bytes": 30616,
+      "triangles": 1680
+    },
+    {
+      "path": "models/sectional_sofa_low.glb",
+      "bytes": 21964,
+      "triangles": 880
+    },
+    {
+      "path": "models/sectional_sofa_medium.glb",
+      "bytes": 28888,
+      "triangles": 1488
     },
     {
       "path": "models/shower.glb",
@@ -93,9 +253,34 @@
       "triangles": 520
     },
     {
+      "path": "models/side_table.glb",
+      "bytes": 8216,
+      "triangles": 576
+    },
+    {
+      "path": "models/side_table_low.glb",
+      "bytes": 4372,
+      "triangles": 192
+    },
+    {
+      "path": "models/side_table_medium.glb",
+      "bytes": 5812,
+      "triangles": 336
+    },
+    {
       "path": "models/sofa.glb",
-      "bytes": 16840,
-      "triangles": 1248
+      "bytes": 28080,
+      "triangles": 1592
+    },
+    {
+      "path": "models/sofa_low.glb",
+      "bytes": 19432,
+      "triangles": 792
+    },
+    {
+      "path": "models/sofa_medium.glb",
+      "bytes": 26352,
+      "triangles": 1400
     },
     {
       "path": "models/task_chair.glb",
@@ -114,8 +299,18 @@
     },
     {
       "path": "models/wardrobe.glb",
-      "bytes": 12660,
-      "triangles": 864
+      "bytes": 12836,
+      "triangles": 528
+    },
+    {
+      "path": "models/wardrobe_low.glb",
+      "bytes": 12836,
+      "triangles": 528
+    },
+    {
+      "path": "models/wardrobe_medium.glb",
+      "bytes": 12836,
+      "triangles": 528
     },
     {
       "path": "models/wc.glb",

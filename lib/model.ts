@@ -2,14 +2,23 @@ import type { DesignModel, FurnitureObject, OpeningModel, Point2, RoomModel, Wal
 
 export const materialPresets = ['Warm White','Cool White','Sandstone','Sage Accent','Terracotta Accent','Walnut Wood','Oak Wood','Charcoal Fabric','Ocean Blue','Brushed Metal','Clear Glass'];
 export const objectPresets: Array<{ type: FurnitureObject['type']; name: string; size: [number,number,number]; material: string }> = [
-  { type:'SOFA', name:'Three-seat sofa', size:[2.2,.9,.82], material:'Sandstone' },
-  { type:'CHAIR', name:'Lounge chair', size:[.82,.82,.88], material:'Sage Accent' },
-  { type:'BED', name:'Queen bed', size:[1.6,2.05,.55], material:'Warm White' },
-  { type:'TABLE', name:'Dining table', size:[1.8,.9,.76], material:'Walnut Wood' },
-  { type:'CABINET', name:'Storage cabinet', size:[1.4,.48,1.9], material:'Oak Wood' },
+  { type:'SOFA', name:'Three-seat sofa', size:[2.24,.92,1.02], material:'Sandstone' },
+  { type:'SOFA', name:'Premium sectional sofa', size:[2.85,1.52,1.02], material:'Sandstone' },
+  { type:'CHAIR', name:'Lounge chair', size:[.78,.79,.98], material:'Sage Accent' },
+  { type:'CHAIR', name:'Accent chair', size:[.80,.79,.98], material:'Terracotta Accent' },
+  { type:'CHAIR', name:'Bar stool', size:[.50,.46,1.09], material:'Charcoal Fabric' },
+  { type:'BED', name:'Queen bed', size:[1.70,2.02,1.15], material:'Warm White' },
+  { type:'BED', name:'King bed', size:[1.97,2.12,1.15], material:'Warm White' },
+  { type:'TABLE', name:'Dining table', size:[1.80,.95,.74], material:'Walnut Wood' },
+  { type:'TABLE', name:'Round dining table', size:[1.30,1.30,.72], material:'Walnut Wood' },
+  { type:'TABLE', name:'Side table', size:[.50,.50,.56], material:'Italian Marble' },
+  { type:'CABINET', name:'Wardrobe', size:[1.86,.70,2.25], material:'Oak Wood' },
+  { type:'CABINET', name:'Kitchen island', size:[1.88,1.0,.94], material:'Warm White' },
   { type:'TV_UNIT', name:'TV console', size:[1.8,.42,.55], material:'Walnut Wood' },
-  { type:'PLANT', name:'Indoor plant', size:[.65,.65,1.45], material:'Sage Accent' },
+  { type:'PLANT', name:'Indoor plant', size:[.73,.72,1.70], material:'Sage Accent' },
   { type:'LAMP', name:'Floor lamp', size:[.45,.45,1.65], material:'Brushed Metal' },
+  { type:'LAMP', name:'Pendant light', size:[.56,.56,.98], material:'Brushed Metal' },
+  { type:'CUSTOM', name:'Freestanding tub', size:[1.66,.70,.55], material:'Warm White' },
   { type:'RUG', name:'Area rug', size:[2.2,1.6,.025], material:'Terracotta Accent' }
 ];
 

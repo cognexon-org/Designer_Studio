@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "Project-created original assets; usable with this source package.",
   "models": [
     {
@@ -18,28 +18,58 @@
     {
       "id": "bed_queen",
       "file": "models/bed_queen.glb",
-      "bytes": 7732,
+      "bytes": 30328,
       "coordinateSystem": "Y_UP",
       "unit": "metre",
       "nativeBoundsM": [
-        1.63,
-        1.0,
-        2.0
+        1.6975,
+        1.15,
+        2.015
       ],
-      "fit": "UNIFORM_CONTAIN"
+      "fit": "UNIFORM_CONTAIN",
+      "triangles": 2144,
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/bed_queen.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/bed_queen_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/bed_queen_low.glb"
+        }
+      ]
     },
     {
       "id": "chair",
       "file": "models/chair.glb",
-      "bytes": 8372,
+      "bytes": 17856,
       "coordinateSystem": "Y_UP",
       "unit": "metre",
       "nativeBoundsM": [
         0.78,
-        1.079051,
-        0.819427
+        0.979803,
+        0.783898
       ],
-      "fit": "UNIFORM_CONTAIN"
+      "fit": "UNIFORM_CONTAIN",
+      "triangles": 1196,
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/chair.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/chair_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/chair_low.glb"
+        }
+      ]
     },
     {
       "id": "coffee_table",
@@ -96,15 +126,30 @@
     {
       "id": "dining_table",
       "file": "models/dining_table.glb",
-      "bytes": 6372,
+      "bytes": 6344,
       "coordinateSystem": "Y_UP",
       "unit": "metre",
       "nativeBoundsM": [
-        1.55,
-        0.758077,
-        0.9
+        1.8,
+        0.74,
+        0.95
       ],
-      "fit": "UNIFORM_CONTAIN"
+      "fit": "UNIFORM_CONTAIN",
+      "triangles": 220,
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/dining_table.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/dining_table_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/dining_table_low.glb"
+        }
+      ]
     },
     {
       "id": "fridge",
@@ -174,15 +219,30 @@
     {
       "id": "plant",
       "file": "models/plant.glb",
-      "bytes": 47028,
+      "bytes": 68804,
       "coordinateSystem": "Y_UP",
       "unit": "metre",
       "nativeBoundsM": [
-        0.6,
-        1.72,
-        0.663394
+        0.733787,
+        1.700272,
+        0.716135
       ],
-      "fit": "UNIFORM_CONTAIN"
+      "fit": "UNIFORM_CONTAIN",
+      "triangles": 7440,
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/plant.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/plant_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/plant_low.glb"
+        }
+      ]
     },
     {
       "id": "shower",
@@ -200,15 +260,30 @@
     {
       "id": "sofa",
       "file": "models/sofa.glb",
-      "bytes": 16840,
+      "bytes": 28080,
       "coordinateSystem": "Y_UP",
       "unit": "metre",
       "nativeBoundsM": [
         2.24,
-        1.038035,
-        0.893477
+        1.017836,
+        0.92
       ],
-      "fit": "UNIFORM_CONTAIN"
+      "fit": "UNIFORM_CONTAIN",
+      "triangles": 1592,
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/sofa.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/sofa_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/sofa_low.glb"
+        }
+      ]
     },
     {
       "id": "task_chair",
@@ -252,15 +327,30 @@
     {
       "id": "wardrobe",
       "file": "models/wardrobe.glb",
-      "bytes": 12660,
+      "bytes": 12836,
       "coordinateSystem": "Y_UP",
       "unit": "metre",
       "nativeBoundsM": [
-        1.66,
-        2.2,
-        0.702
+        1.86,
+        2.25,
+        0.7025
       ],
-      "fit": "UNIFORM_CONTAIN"
+      "fit": "UNIFORM_CONTAIN",
+      "triangles": 528,
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/wardrobe.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/wardrobe_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/wardrobe_low.glb"
+        }
+      ]
     },
     {
       "id": "wc",
@@ -274,6 +364,313 @@
         0.88
       ],
       "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "sectional_sofa",
+      "file": "models/sectional_sofa.glb",
+      "bytes": 30616,
+      "triangles": 1680,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        2.85,
+        1.017836,
+        1.515
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "tags": [
+        "premium",
+        "living-room",
+        "sectional",
+        "3-seat",
+        "chaise"
+      ],
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/sectional_sofa.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/sectional_sofa_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/sectional_sofa_low.glb"
+        }
+      ]
+    },
+    {
+      "id": "accent_chair",
+      "file": "models/accent_chair.glb",
+      "bytes": 20132,
+      "triangles": 1284,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        0.8,
+        0.979803,
+        0.783898
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "tags": [
+        "premium",
+        "living-room",
+        "accent",
+        "chair"
+      ],
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/accent_chair.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/accent_chair_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/accent_chair_low.glb"
+        }
+      ]
+    },
+    {
+      "id": "bar_stool",
+      "file": "models/bar_stool.glb",
+      "bytes": 35520,
+      "triangles": 2176,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        0.5,
+        1.086446,
+        0.457659
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "tags": [
+        "premium",
+        "kitchen",
+        "bar",
+        "stool"
+      ],
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/bar_stool.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/bar_stool_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/bar_stool_low.glb"
+        }
+      ]
+    },
+    {
+      "id": "king_bed",
+      "file": "models/king_bed.glb",
+      "bytes": 30360,
+      "triangles": 2188,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.9675,
+        1.15,
+        2.115
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "tags": [
+        "premium",
+        "bedroom",
+        "king",
+        "upholstered"
+      ],
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/king_bed.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/king_bed_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/king_bed_low.glb"
+        }
+      ]
+    },
+    {
+      "id": "round_dining_table",
+      "file": "models/round_dining_table.glb",
+      "bytes": 29824,
+      "triangles": 1728,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.3,
+        0.72,
+        1.3
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "tags": [
+        "premium",
+        "dining",
+        "round",
+        "pedestal"
+      ],
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/round_dining_table.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/round_dining_table_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/round_dining_table_low.glb"
+        }
+      ]
+    },
+    {
+      "id": "side_table",
+      "file": "models/side_table.glb",
+      "bytes": 8216,
+      "triangles": 576,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        0.5,
+        0.5575,
+        0.5
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "tags": [
+        "premium",
+        "living-room",
+        "bedroom",
+        "marble"
+      ],
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/side_table.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/side_table_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/side_table_low.glb"
+        }
+      ]
+    },
+    {
+      "id": "pendant_light",
+      "file": "models/pendant_light.glb",
+      "bytes": 16772,
+      "triangles": 704,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        0.56,
+        0.975,
+        0.56
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "tags": [
+        "premium",
+        "lighting",
+        "pendant",
+        "metal"
+      ],
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/pendant_light.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/pendant_light_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/pendant_light_low.glb"
+        }
+      ]
+    },
+    {
+      "id": "kitchen_island",
+      "file": "models/kitchen_island.glb",
+      "bytes": 14676,
+      "triangles": 608,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.88,
+        0.9375,
+        1.0
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "tags": [
+        "premium",
+        "kitchen",
+        "island",
+        "marble"
+      ],
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/kitchen_island.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/kitchen_island_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/kitchen_island_low.glb"
+        }
+      ]
+    },
+    {
+      "id": "freestanding_tub",
+      "file": "models/freestanding_tub.glb",
+      "bytes": 20872,
+      "triangles": 1560,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.655,
+        0.55,
+        0.702
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "tags": [
+        "premium",
+        "bathroom",
+        "tub",
+        "ceramic"
+      ],
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/freestanding_tub.glb"
+        },
+        {
+          "level": "MEDIUM",
+          "file": "models/freestanding_tub_medium.glb"
+        },
+        {
+          "level": "LOW",
+          "file": "models/freestanding_tub_low.glb"
+        }
+      ]
     }
   ],
   "pbrSets": [
@@ -288,5 +685,5 @@
     "brushed_metal"
   ],
   "hdri": "hdri/studio_day_1k.hdr",
-  "notes": "Corrected Y-up, metre-based local GLB catalogue. Runtime uses uniform contain scaling; procedural fallback remains available."
+  "notes": "Patch 03A adds project-created premium procedural assets and LOD derivatives. No external third-party 3D models are bundled."
 }

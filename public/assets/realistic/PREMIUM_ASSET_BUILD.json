@@ -1,0 +1,500 @@
+{
+  "generatedBy": "Patch 03A procedural asset builder",
+  "assets": [
+    {
+      "id": "sofa",
+      "file": "sofa.glb",
+      "bytes": 28080,
+      "triangles": 1592,
+      "bounds": [
+        2.240000009536743,
+        1.0178359746932983,
+        0.9200000166893005
+      ]
+    },
+    {
+      "id": "sofa_medium",
+      "file": "sofa_medium.glb",
+      "bytes": 26352,
+      "triangles": 1400,
+      "bounds": [
+        2.240000009536743,
+        1.0178359746932983,
+        0.9200000166893005
+      ]
+    },
+    {
+      "id": "sofa_low",
+      "file": "sofa_low.glb",
+      "bytes": 19432,
+      "triangles": 792,
+      "bounds": [
+        2.240000009536743,
+        1.0178359746932983,
+        0.9200000166893005
+      ]
+    },
+    {
+      "id": "bed_queen",
+      "file": "bed_queen.glb",
+      "bytes": 30328,
+      "triangles": 2144,
+      "bounds": [
+        1.6974999904632568,
+        1.149999976158142,
+        2.0149999856948853
+      ]
+    },
+    {
+      "id": "bed_queen_medium",
+      "file": "bed_queen_medium.glb",
+      "bytes": 23620,
+      "triangles": 1312,
+      "bounds": [
+        1.6974999904632568,
+        1.149999976158142,
+        2.0149999856948853
+      ]
+    },
+    {
+      "id": "bed_queen_low",
+      "file": "bed_queen_low.glb",
+      "bytes": 16700,
+      "triangles": 704,
+      "bounds": [
+        1.6974999904632568,
+        1.149999976158142,
+        2.0149999856948853
+      ]
+    },
+    {
+      "id": "chair",
+      "file": "chair.glb",
+      "bytes": 17856,
+      "triangles": 1196,
+      "bounds": [
+        0.7799999713897705,
+        0.979803349939175,
+        0.7838976085186005
+      ]
+    },
+    {
+      "id": "chair_medium",
+      "file": "chair_medium.glb",
+      "bytes": 16112,
+      "triangles": 1004,
+      "bounds": [
+        0.7799999713897705,
+        0.9798073020065203,
+        0.7838976085186005
+      ]
+    },
+    {
+      "id": "chair_low",
+      "file": "chair_low.glb",
+      "bytes": 9196,
+      "triangles": 396,
+      "bounds": [
+        0.7799999713897705,
+        0.9797832748154178,
+        0.7803857624530792
+      ]
+    },
+    {
+      "id": "dining_table",
+      "file": "dining_table.glb",
+      "bytes": 6344,
+      "triangles": 220,
+      "bounds": [
+        1.7999999523162842,
+        0.7399999927729368,
+        0.949999988079071
+      ]
+    },
+    {
+      "id": "dining_table_medium",
+      "file": "dining_table_medium.glb",
+      "bytes": 6344,
+      "triangles": 220,
+      "bounds": [
+        1.7999999523162842,
+        0.7399999927729368,
+        0.949999988079071
+      ]
+    },
+    {
+      "id": "dining_table_low",
+      "file": "dining_table_low.glb",
+      "bytes": 6344,
+      "triangles": 220,
+      "bounds": [
+        1.7999999523162842,
+        0.7399999927729368,
+        0.949999988079071
+      ]
+    },
+    {
+      "id": "wardrobe",
+      "file": "wardrobe.glb",
+      "bytes": 12836,
+      "triangles": 528,
+      "bounds": [
+        1.8600000143051147,
+        2.25,
+        0.7024999856948853
+      ]
+    },
+    {
+      "id": "wardrobe_medium",
+      "file": "wardrobe_medium.glb",
+      "bytes": 12836,
+      "triangles": 528,
+      "bounds": [
+        1.8600000143051147,
+        2.25,
+        0.7024999856948853
+      ]
+    },
+    {
+      "id": "wardrobe_low",
+      "file": "wardrobe_low.glb",
+      "bytes": 12836,
+      "triangles": 528,
+      "bounds": [
+        1.8600000143051147,
+        2.25,
+        0.7024999856948853
+      ]
+    },
+    {
+      "id": "plant",
+      "file": "plant.glb",
+      "bytes": 68804,
+      "triangles": 7440,
+      "bounds": [
+        0.7337870299816132,
+        1.7002724409103394,
+        0.7161348760128021
+      ]
+    },
+    {
+      "id": "plant_medium",
+      "file": "plant_medium.glb",
+      "bytes": 22888,
+      "triangles": 1360,
+      "bounds": [
+        0.7160168886184692,
+        1.665835976600647,
+        0.6944446861743927
+      ]
+    },
+    {
+      "id": "plant_low",
+      "file": "plant_low.glb",
+      "bytes": 15232,
+      "triangles": 816,
+      "bounds": [
+        0.6927081048488617,
+        1.653059959411621,
+        0.7039174437522888
+      ]
+    },
+    {
+      "id": "sectional_sofa",
+      "file": "sectional_sofa.glb",
+      "bytes": 30616,
+      "triangles": 1680,
+      "bounds": [
+        2.8499999046325684,
+        1.0178359746932983,
+        1.5149999558925629
+      ]
+    },
+    {
+      "id": "sectional_sofa_medium",
+      "file": "sectional_sofa_medium.glb",
+      "bytes": 28888,
+      "triangles": 1488,
+      "bounds": [
+        2.8499999046325684,
+        1.0178359746932983,
+        1.5149999558925629
+      ]
+    },
+    {
+      "id": "sectional_sofa_low",
+      "file": "sectional_sofa_low.glb",
+      "bytes": 21964,
+      "triangles": 880,
+      "bounds": [
+        2.8499999046325684,
+        1.0178359746932983,
+        1.5149999558925629
+      ]
+    },
+    {
+      "id": "accent_chair",
+      "file": "accent_chair.glb",
+      "bytes": 20132,
+      "triangles": 1284,
+      "bounds": [
+        0.800000011920929,
+        0.979803349939175,
+        0.7838976085186005
+      ]
+    },
+    {
+      "id": "accent_chair_medium",
+      "file": "accent_chair_medium.glb",
+      "bytes": 18388,
+      "triangles": 1092,
+      "bounds": [
+        0.800000011920929,
+        0.9798073020065203,
+        0.7838976085186005
+      ]
+    },
+    {
+      "id": "accent_chair_low",
+      "file": "accent_chair_low.glb",
+      "bytes": 11472,
+      "triangles": 484,
+      "bounds": [
+        0.800000011920929,
+        0.9797832748154178,
+        0.7803857624530792
+      ]
+    },
+    {
+      "id": "bar_stool",
+      "file": "bar_stool.glb",
+      "bytes": 35520,
+      "triangles": 2176,
+      "bounds": [
+        0.5,
+        1.0864455606788397,
+        0.4576593041419983
+      ]
+    },
+    {
+      "id": "bar_stool_medium",
+      "file": "bar_stool_medium.glb",
+      "bytes": 22556,
+      "triangles": 1360,
+      "bounds": [
+        0.5,
+        1.0864455606788397,
+        0.4576593041419983
+      ]
+    },
+    {
+      "id": "bar_stool_low",
+      "file": "bar_stool_low.glb",
+      "bytes": 11884,
+      "triangles": 544,
+      "bounds": [
+        0.5,
+        1.0864455606788397,
+        0.4576593041419983
+      ]
+    },
+    {
+      "id": "king_bed",
+      "file": "king_bed.glb",
+      "bytes": 30360,
+      "triangles": 2188,
+      "bounds": [
+        1.9675000309944153,
+        1.149999976158142,
+        2.115000009536743
+      ]
+    },
+    {
+      "id": "king_bed_medium",
+      "file": "king_bed_medium.glb",
+      "bytes": 23648,
+      "triangles": 1356,
+      "bounds": [
+        1.9675000309944153,
+        1.149999976158142,
+        2.115000009536743
+      ]
+    },
+    {
+      "id": "king_bed_low",
+      "file": "king_bed_low.glb",
+      "bytes": 16728,
+      "triangles": 748,
+      "bounds": [
+        1.9675000309944153,
+        1.149999976158142,
+        2.115000009536743
+      ]
+    },
+    {
+      "id": "round_dining_table",
+      "file": "round_dining_table.glb",
+      "bytes": 29824,
+      "triangles": 1728,
+      "bounds": [
+        1.2999999523162842,
+        0.7199999913573265,
+        1.2999999523162842
+      ]
+    },
+    {
+      "id": "round_dining_table_medium",
+      "file": "round_dining_table_medium.glb",
+      "bytes": 5856,
+      "triangles": 336,
+      "bounds": [
+        1.2999999523162842,
+        0.7199999913573265,
+        1.2999999523162842
+      ]
+    },
+    {
+      "id": "round_dining_table_low",
+      "file": "round_dining_table_low.glb",
+      "bytes": 4412,
+      "triangles": 192,
+      "bounds": [
+        1.2999999523162842,
+        0.7199999913573265,
+        1.2999999523162842
+      ]
+    },
+    {
+      "id": "side_table",
+      "file": "side_table.glb",
+      "bytes": 8216,
+      "triangles": 576,
+      "bounds": [
+        0.5,
+        0.5574999824166298,
+        0.5
+      ]
+    },
+    {
+      "id": "side_table_medium",
+      "file": "side_table_medium.glb",
+      "bytes": 5812,
+      "triangles": 336,
+      "bounds": [
+        0.5,
+        0.5574999824166298,
+        0.5
+      ]
+    },
+    {
+      "id": "side_table_low",
+      "file": "side_table_low.glb",
+      "bytes": 4372,
+      "triangles": 192,
+      "bounds": [
+        0.5,
+        0.5574999824166298,
+        0.5
+      ]
+    },
+    {
+      "id": "pendant_light",
+      "file": "pendant_light.glb",
+      "bytes": 16772,
+      "triangles": 704,
+      "bounds": [
+        0.5600000023841858,
+        0.9749999791383743,
+        0.5600000023841858
+      ]
+    },
+    {
+      "id": "pendant_light_medium",
+      "file": "pendant_light_medium.glb",
+      "bytes": 13648,
+      "triangles": 544,
+      "bounds": [
+        0.5600000023841858,
+        0.9749999791383743,
+        0.5600000023841858
+      ]
+    },
+    {
+      "id": "pendant_light_low",
+      "file": "pendant_light_low.glb",
+      "bytes": 7736,
+      "triangles": 224,
+      "bounds": [
+        0.5600000023841858,
+        0.9749999791383743,
+        0.5600000023841858
+      ]
+    },
+    {
+      "id": "kitchen_island",
+      "file": "kitchen_island.glb",
+      "bytes": 14676,
+      "triangles": 608,
+      "bounds": [
+        1.8799999952316284,
+        0.9375,
+        1.0
+      ]
+    },
+    {
+      "id": "kitchen_island_medium",
+      "file": "kitchen_island_medium.glb",
+      "bytes": 13800,
+      "triangles": 512,
+      "bounds": [
+        1.8799999952316284,
+        0.9375,
+        1.0
+      ]
+    },
+    {
+      "id": "kitchen_island_low",
+      "file": "kitchen_island_low.glb",
+      "bytes": 13800,
+      "triangles": 512,
+      "bounds": [
+        1.8799999952316284,
+        0.9375,
+        1.0
+      ]
+    },
+    {
+      "id": "freestanding_tub",
+      "file": "freestanding_tub.glb",
+      "bytes": 20872,
+      "triangles": 1560,
+      "bounds": [
+        1.6549999713897705,
+        0.5500000044703484,
+        0.7019999921321869
+      ]
+    },
+    {
+      "id": "freestanding_tub_medium",
+      "file": "freestanding_tub_medium.glb",
+      "bytes": 19432,
+      "triangles": 1480,
+      "bounds": [
+        1.6549999713897705,
+        0.5500000044703484,
+        0.7019999921321869
+      ]
+    },
+    {
+      "id": "freestanding_tub_low",
+      "file": "freestanding_tub_low.glb",
+      "bytes": 9912,
+      "triangles": 472,
+      "bounds": [
+        1.6549999713897705,
+        0.5500000044703484,
+        0.7019999921321869
+      ]
+    }
+  ]
+}
