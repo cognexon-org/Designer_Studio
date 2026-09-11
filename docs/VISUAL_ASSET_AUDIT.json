@@ -1,0 +1,440 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-11T14:49:26.700Z",
+  "root": "/mnt/data/patch03_work/Designer_Studio-main/public/assets/realistic",
+  "budgets": {
+    "modelBytes": 2097152,
+    "modelTriangles": 120000,
+    "textureBytes": 1048576,
+    "environmentBytes": 4194304
+  },
+  "summary": {
+    "models": 21,
+    "textures": 74,
+    "environments": 1,
+    "totalBytes": 9480454,
+    "totalMiB": 9.04,
+    "warnings": 2
+  },
+  "models": [
+    {
+      "path": "models/bed.glb",
+      "bytes": 7804,
+      "triangles": 576
+    },
+    {
+      "path": "models/bed_queen.glb",
+      "bytes": 7732,
+      "triangles": 576
+    },
+    {
+      "path": "models/chair.glb",
+      "bytes": 8372,
+      "triangles": 480
+    },
+    {
+      "path": "models/coffee_table.glb",
+      "bytes": 35924,
+      "triangles": 1840
+    },
+    {
+      "path": "models/console.glb",
+      "bytes": 10508,
+      "triangles": 624
+    },
+    {
+      "path": "models/desk.glb",
+      "bytes": 6920,
+      "triangles": 384
+    },
+    {
+      "path": "models/dining_chair.glb",
+      "bytes": 8104,
+      "triangles": 448
+    },
+    {
+      "path": "models/dining_table.glb",
+      "bytes": 6372,
+      "triangles": 288
+    },
+    {
+      "path": "models/fridge.glb",
+      "bytes": 8044,
+      "triangles": 480
+    },
+    {
+      "path": "models/kitchen_counter.glb",
+      "bytes": 10448,
+      "triangles": 696
+    },
+    {
+      "path": "models/kitchen_counter_short.glb",
+      "bytes": 8732,
+      "triangles": 560
+    },
+    {
+      "path": "models/lamp.glb",
+      "bytes": 38384,
+      "triangles": 1960
+    },
+    {
+      "path": "models/nightstand.glb",
+      "bytes": 9564,
+      "triangles": 496
+    },
+    {
+      "path": "models/plant.glb",
+      "bytes": 47028,
+      "triangles": 5296
+    },
+    {
+      "path": "models/shower.glb",
+      "bytes": 10608,
+      "triangles": 520
+    },
+    {
+      "path": "models/sofa.glb",
+      "bytes": 16840,
+      "triangles": 1248
+    },
+    {
+      "path": "models/task_chair.glb",
+      "bytes": 15048,
+      "triangles": 720
+    },
+    {
+      "path": "models/tv_unit.glb",
+      "bytes": 12480,
+      "triangles": 888
+    },
+    {
+      "path": "models/vanity.glb",
+      "bytes": 32668,
+      "triangles": 1744
+    },
+    {
+      "path": "models/wardrobe.glb",
+      "bytes": 12660,
+      "triangles": 864
+    },
+    {
+      "path": "models/wc.glb",
+      "bytes": 35388,
+      "triangles": 2752
+    }
+  ],
+  "textures": [
+    {
+      "path": "misc/city_day.png",
+      "bytes": 15481
+    },
+    {
+      "path": "misc/city_day.webp",
+      "bytes": 25636
+    },
+    {
+      "path": "pbr/brushed_metal/ao.png",
+      "bytes": 920
+    },
+    {
+      "path": "pbr/brushed_metal/ao.webp",
+      "bytes": 528
+    },
+    {
+      "path": "pbr/brushed_metal/basecolor.png",
+      "bytes": 66339
+    },
+    {
+      "path": "pbr/brushed_metal/basecolor.webp",
+      "bytes": 17682
+    },
+    {
+      "path": "pbr/brushed_metal/normal.png",
+      "bytes": 113077
+    },
+    {
+      "path": "pbr/brushed_metal/normal.webp",
+      "bytes": 22216
+    },
+    {
+      "path": "pbr/brushed_metal/roughness.png",
+      "bytes": 58595
+    },
+    {
+      "path": "pbr/brushed_metal/roughness.webp",
+      "bytes": 22838
+    },
+    {
+      "path": "pbr/fabric_charcoal/ao.png",
+      "bytes": 2385
+    },
+    {
+      "path": "pbr/fabric_charcoal/ao.webp",
+      "bytes": 528
+    },
+    {
+      "path": "pbr/fabric_charcoal/basecolor.png",
+      "bytes": 394958
+    },
+    {
+      "path": "pbr/fabric_charcoal/basecolor.webp",
+      "bytes": 75362
+    },
+    {
+      "path": "pbr/fabric_charcoal/normal.png",
+      "bytes": 1831461
+    },
+    {
+      "path": "pbr/fabric_charcoal/normal.webp",
+      "bytes": 88936
+    },
+    {
+      "path": "pbr/fabric_charcoal/roughness.png",
+      "bytes": 97828
+    },
+    {
+      "path": "pbr/fabric_charcoal/roughness.webp",
+      "bytes": 3800
+    },
+    {
+      "path": "pbr/fabric_sand/ao.png",
+      "bytes": 2385
+    },
+    {
+      "path": "pbr/fabric_sand/ao.webp",
+      "bytes": 528
+    },
+    {
+      "path": "pbr/fabric_sand/basecolor.png",
+      "bytes": 427374
+    },
+    {
+      "path": "pbr/fabric_sand/basecolor.webp",
+      "bytes": 93456
+    },
+    {
+      "path": "pbr/fabric_sand/normal.png",
+      "bytes": 1831461
+    },
+    {
+      "path": "pbr/fabric_sand/normal.webp",
+      "bytes": 88936
+    },
+    {
+      "path": "pbr/fabric_sand/roughness.png",
+      "bytes": 97828
+    },
+    {
+      "path": "pbr/fabric_sand/roughness.webp",
+      "bytes": 3800
+    },
+    {
+      "path": "pbr/marble/ao.png",
+      "bytes": 2385
+    },
+    {
+      "path": "pbr/marble/ao.webp",
+      "bytes": 528
+    },
+    {
+      "path": "pbr/marble/basecolor.png",
+      "bytes": 239688
+    },
+    {
+      "path": "pbr/marble/basecolor.webp",
+      "bytes": 24476
+    },
+    {
+      "path": "pbr/marble/normal.png",
+      "bytes": 140454
+    },
+    {
+      "path": "pbr/marble/normal.webp",
+      "bytes": 4226
+    },
+    {
+      "path": "pbr/marble/roughness.png",
+      "bytes": 126778
+    },
+    {
+      "path": "pbr/marble/roughness.webp",
+      "bytes": 6246
+    },
+    {
+      "path": "pbr/oak/ao.png",
+      "bytes": 2385
+    },
+    {
+      "path": "pbr/oak/ao.webp",
+      "bytes": 528
+    },
+    {
+      "path": "pbr/oak/basecolor.png",
+      "bytes": 384370
+    },
+    {
+      "path": "pbr/oak/basecolor.webp",
+      "bytes": 29018
+    },
+    {
+      "path": "pbr/oak/normal.png",
+      "bytes": 132734
+    },
+    {
+      "path": "pbr/oak/normal.webp",
+      "bytes": 11450
+    },
+    {
+      "path": "pbr/oak/roughness.png",
+      "bytes": 147540
+    },
+    {
+      "path": "pbr/oak/roughness.webp",
+      "bytes": 8448
+    },
+    {
+      "path": "pbr/plaster/ao.png",
+      "bytes": 2385
+    },
+    {
+      "path": "pbr/plaster/ao.webp",
+      "bytes": 528
+    },
+    {
+      "path": "pbr/plaster/basecolor.png",
+      "bytes": 96735
+    },
+    {
+      "path": "pbr/plaster/basecolor.webp",
+      "bytes": 9528
+    },
+    {
+      "path": "pbr/plaster/normal.png",
+      "bytes": 130318
+    },
+    {
+      "path": "pbr/plaster/normal.webp",
+      "bytes": 3268
+    },
+    {
+      "path": "pbr/plaster/roughness.png",
+      "bytes": 115176
+    },
+    {
+      "path": "pbr/plaster/roughness.webp",
+      "bytes": 5422
+    },
+    {
+      "path": "pbr/rug/ao.png",
+      "bytes": 920
+    },
+    {
+      "path": "pbr/rug/ao.webp",
+      "bytes": 528
+    },
+    {
+      "path": "pbr/rug/basecolor.png",
+      "bytes": 94037
+    },
+    {
+      "path": "pbr/rug/basecolor.webp",
+      "bytes": 4964
+    },
+    {
+      "path": "pbr/rug/normal.png",
+      "bytes": 52274
+    },
+    {
+      "path": "pbr/rug/normal.webp",
+      "bytes": 3992
+    },
+    {
+      "path": "pbr/rug/roughness.png",
+      "bytes": 30403
+    },
+    {
+      "path": "pbr/rug/roughness.webp",
+      "bytes": 3188
+    },
+    {
+      "path": "pbr/tile/ao.png",
+      "bytes": 2385
+    },
+    {
+      "path": "pbr/tile/ao.webp",
+      "bytes": 528
+    },
+    {
+      "path": "pbr/tile/basecolor.png",
+      "bytes": 116045
+    },
+    {
+      "path": "pbr/tile/basecolor.webp",
+      "bytes": 11892
+    },
+    {
+      "path": "pbr/tile/normal.png",
+      "bytes": 4928
+    },
+    {
+      "path": "pbr/tile/normal.webp",
+      "bytes": 2128
+    },
+    {
+      "path": "pbr/tile/roughness.png",
+      "bytes": 115170
+    },
+    {
+      "path": "pbr/tile/roughness.webp",
+      "bytes": 5190
+    },
+    {
+      "path": "pbr/walnut/ao.png",
+      "bytes": 2385
+    },
+    {
+      "path": "pbr/walnut/ao.webp",
+      "bytes": 528
+    },
+    {
+      "path": "pbr/walnut/basecolor.png",
+      "bytes": 285351
+    },
+    {
+      "path": "pbr/walnut/basecolor.webp",
+      "bytes": 20958
+    },
+    {
+      "path": "pbr/walnut/normal.png",
+      "bytes": 132734
+    },
+    {
+      "path": "pbr/walnut/normal.webp",
+      "bytes": 11450
+    },
+    {
+      "path": "pbr/walnut/roughness.png",
+      "bytes": 151613
+    },
+    {
+      "path": "pbr/walnut/roughness.webp",
+      "bytes": 9002
+    }
+  ],
+  "environments": [
+    {
+      "path": "hdri/studio_day_1k.hdr",
+      "bytes": 1059281
+    }
+  ],
+  "warnings": [
+    "pbr/fabric_charcoal/normal.png: 1.75 MiB exceeds 1 MiB V1 texture budget",
+    "pbr/fabric_sand/normal.png: 1.75 MiB exceeds 1 MiB V1 texture budget"
+  ],
+  "optimisationPolicy": {
+    "high": "Preserve silhouette/detail; target <=120k triangles and <=2 MiB where practical.",
+    "medium": "Create approximately 45–60% triangle LOD for mid-distance use.",
+    "low": "Create approximately 15–25% triangle LOD for room-overview / distant use.",
+    "textures": "Prefer WebP/KTX2 derivatives; preserve source masters outside the web bundle."
+  }
+}

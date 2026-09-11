@@ -17,6 +17,11 @@ import { SSAOPass } from 'three/examples/jsm/postprocessing/SSAOPass.js';
 import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { modelBounds, normalizeFurniture, wallLength } from '@/lib/model';
+import { localAssetFor, LOCAL_ASSET_ROOT } from '@/lib/visual/assetRegistry';
+import { PBR_MATERIAL_REGISTRY, type LocalPbrId } from '@/lib/visual/materialRegistry';
+import { lightingPreset as getLightingPreset, type LightingPresetName } from '@/lib/visual/lighting';
+import { qualityProfile, type RenderQuality } from '@/lib/visual/quality';
+import { rendererTelemetry, type RenderTelemetry } from '@/lib/visual/performance';
 import type {
   CameraMode,
   DesignModel,
@@ -36,8 +41,10 @@ interface Props {
   isolateRoomId?: string | null;
   hiddenWallIds?: string[];
   snapshotToken?: number;
-  quality?: 'LOW' | 'MEDIUM' | 'HIGH';
+  quality?: RenderQuality;
+  lighting?: LightingPresetName;
   daylight?: number;
+  onTelemetry?: (telemetry: RenderTelemetry) => void;
   onSelect?: (selection: Selection) => void;
   onChangeObject?: (roomId: string, object: FurnitureObject) => void;
 }
@@ -90,22 +97,10 @@ type Runtime = {
   sunTarget: THREE.Object3D;
   fill: THREE.PointLight;
   warm: THREE.PointLight;
+  hemisphere: THREE.HemisphereLight;
   maxAnisotropy: number;
-  quality: 'LOW' | 'MEDIUM' | 'HIGH';
-};
-
-const ASSET_ROOT = '/assets/realistic';
-
-const PBR_SETS: Record<string, string> = {
-  oak: `${ASSET_ROOT}/pbr/oak`,
-  walnut: `${ASSET_ROOT}/pbr/walnut`,
-  marble: `${ASSET_ROOT}/pbr/marble`,
-  tile: `${ASSET_ROOT}/pbr/tile`,
-  plaster: `${ASSET_ROOT}/pbr/plaster`,
-  fabricSand: `${ASSET_ROOT}/pbr/fabric_sand`,
-  fabricCharcoal: `${ASSET_ROOT}/pbr/fabric_charcoal`,
-  rug: `${ASSET_ROOT}/pbr/rug`,
-  metal: `${ASSET_ROOT}/pbr/brushed_metal`,
+  quality: RenderQuality;
+  lastTelemetryAt?: number;
 };
 
 function stable(value: unknown): string {
@@ -268,19 +263,19 @@ function texture(
   loaded.wrapS = THREE.RepeatWrapping;
   loaded.wrapT = THREE.RepeatWrapping;
   loaded.repeat.set(repeat[0], repeat[1]);
-  loaded.anisotropy = Math.min(runtime.maxAnisotropy, runtime.quality === 'HIGH' ? 12 : 6);
+  loaded.anisotropy = Math.min(runtime.maxAnisotropy, qualityProfile(runtime.quality).maxAnisotropy);
   if (colorTexture) loaded.colorSpace = THREE.SRGBColorSpace;
   runtime.textureCache.set(key, loaded);
   return loaded;
 }
 
-function pbrMaps(runtime: Runtime, set: keyof typeof PBR_SETS, repeat?: [number, number]) {
-  const root = PBR_SETS[set];
+function pbrMaps(runtime: Runtime, set: LocalPbrId, repeat?: [number, number]) {
+  const descriptor = PBR_MATERIAL_REGISTRY[set];
   return {
-    map: texture(runtime, `${root}/basecolor.webp`, true, repeat),
-    normalMap: texture(runtime, `${root}/normal.webp`, false, repeat),
-    roughnessMap: texture(runtime, `${root}/roughness.webp`, false, repeat),
-    aoMap: texture(runtime, `${root}/ao.webp`, false, repeat),
+    map: descriptor.channels.baseColor ? texture(runtime, descriptor.channels.baseColor, true, repeat) : undefined,
+    normalMap: descriptor.channels.normal ? texture(runtime, descriptor.channels.normal, false, repeat) : undefined,
+    roughnessMap: descriptor.channels.roughness ? texture(runtime, descriptor.channels.roughness, false, repeat) : undefined,
+    aoMap: descriptor.channels.ao ? texture(runtime, descriptor.channels.ao, false, repeat) : undefined,
   };
 }
 
@@ -301,9 +296,9 @@ function material(
       color: 0xc9edf2,
       roughness: 0.06,
       metalness: 0,
-      transmission: runtime.quality === 'LOW' ? 0.35 : 0.82,
+      transmission: runtime.quality === 'PERFORMANCE' ? 0.35 : 0.82,
       transparent: true,
-      opacity: runtime.quality === 'LOW' ? 0.38 : 0.55,
+      opacity: runtime.quality === 'PERFORMANCE' ? 0.38 : 0.55,
       thickness: 0.08,
       ior: 1.47,
       side: THREE.DoubleSide,
@@ -442,43 +437,9 @@ function disposeObject(root: THREE.Object3D, runtime: Runtime): void {
 }
 
 function assetFor(item: FurnitureObject): string | null {
-  if (item.assetUrl) return item.assetUrl;
-  const name = item.name.toLowerCase();
-
-  if (item.type === 'SOFA') return `${ASSET_ROOT}/models/sofa.glb`;
-  if (item.type === 'CHAIR') {
-    if (name.includes('task') || name.includes('office')) return `${ASSET_ROOT}/models/task_chair.glb`;
-    if (name.includes('dining')) return `${ASSET_ROOT}/models/dining_chair.glb`;
-    return `${ASSET_ROOT}/models/chair.glb`;
-  }
-  if (item.type === 'BED') return `${ASSET_ROOT}/models/${name.includes('queen') ? 'bed_queen' : 'bed'}.glb`;
-  if (item.type === 'TV_UNIT') return `${ASSET_ROOT}/models/tv_unit.glb`;
-  if (item.type === 'PLANT') return `${ASSET_ROOT}/models/plant.glb`;
-  if (item.type === 'LAMP') return `${ASSET_ROOT}/models/lamp.glb`;
-
-  if (item.type === 'TABLE') {
-    if (name.includes('desk') || name.includes('study')) return `${ASSET_ROOT}/models/desk.glb`;
-    if (name.includes('coffee') || name.includes('low')) return `${ASSET_ROOT}/models/coffee_table.glb`;
-    return `${ASSET_ROOT}/models/dining_table.glb`;
-  }
-
-  if (item.type === 'CABINET') {
-    if (name.includes('refriger')) return `${ASSET_ROOT}/models/fridge.glb`;
-    if (name.includes('wardrobe')) return `${ASSET_ROOT}/models/wardrobe.glb`;
-    if (name.includes('return counter') || name.includes('short counter')) return `${ASSET_ROOT}/models/kitchen_counter_short.glb`;
-    if (name.includes('counter') || name.includes('base unit')) return `${ASSET_ROOT}/models/kitchen_counter.glb`;
-    if (name.includes('console')) return `${ASSET_ROOT}/models/console.glb`;
-    if (name.includes('vanity') || name.includes('basin')) return `${ASSET_ROOT}/models/vanity.glb`;
-    return `${ASSET_ROOT}/models/nightstand.glb`;
-  }
-
-  if (item.type === 'CUSTOM') {
-    if (name.includes('wc') || name.includes('toilet')) return `${ASSET_ROOT}/models/wc.glb`;
-    if (name.includes('shower')) return `${ASSET_ROOT}/models/shower.glb`;
-    if (name.includes('vanity')) return `${ASSET_ROOT}/models/vanity.glb`;
-  }
-  return null;
+  return localAssetFor(item)?.url ?? null;
 }
+
 
 function fallbackFurniture(runtime: Runtime, item: FurnitureObject): THREE.Group {
   const group = new THREE.Group();
@@ -747,7 +708,7 @@ function buildRoom(
   group.add(floor);
 
   const centroid = roomCentroid(room.floorPolygon);
-  const cityTexture = texture(runtime, `${ASSET_ROOT}/misc/city_day.webp`, true, [1, 1]);
+  const cityTexture = texture(runtime, `${LOCAL_ASSET_ROOT}/misc/city_day.webp`, true, [1, 1]);
   cityTexture.wrapS = THREE.ClampToEdgeWrapping;
   cityTexture.wrapT = THREE.ClampToEdgeWrapping;
 
@@ -870,7 +831,7 @@ function buildRoom(
      cube map: SIX extra renders of the entire scene per light per frame. Three
      qualifying rooms used to add eighteen hidden scene renders every frame.
      The sun already provides the directional shadows that sell the depth. */
-  const roomLight = new THREE.PointLight(0xffe4bd, runtime.quality === 'HIGH' ? 3.2 : 2.2, 8.5, 2);
+  const roomLight = new THREE.PointLight(0xffe4bd, qualityProfile(runtime.quality).maxDynamicRoomLights > 0 ? (runtime.quality === 'CINEMATIC' ? 3.6 : 2.5) : 0, 8.5, 2);
   roomLight.position.set(centroid[0], Math.max(1.8, room.heightM - 0.48), centroid[1]);
   roomLight.castShadow = false;
   group.add(roomLight);
@@ -914,7 +875,7 @@ function buildRoom(
           objectGroup.add(asset);
           assignSelectable(asset, key, { kind: 'OBJECT', roomId: room.id, objectId: item.id }, runtime);
           if (item.type === 'LAMP' && !objectGroup.userData.fixtureLight) {
-            const bulb = new THREE.PointLight(0xffd39b, runtime.quality === 'HIGH' ? 4.4 : 2.6, 4.8, 2);
+            const bulb = new THREE.PointLight(0xffd39b, qualityProfile(runtime.quality).maxDynamicRoomLights > 0 ? (runtime.quality === 'CINEMATIC' ? 4.8 : 2.8) : 0, 4.8, 2);
             bulb.position.set(item.size[0] * 0.32, item.size[2] * 0.82, 0);
             bulb.castShadow = false;
             objectGroup.add(bulb);
@@ -941,12 +902,8 @@ function render(runtime: Runtime): void {
  * resolution first, then shadows. Runs on rendered frames only, so an idle
  * viewer is never penalised for being idle.
  */
-function watchFrameCost(runtime: Runtime): void {
-  const now = performance.now();
-  const previous = runtime.lastFrameAt ?? now;
-  runtime.lastFrameAt = now;
-  const cost = now - previous;
-  if (cost <= 0 || cost > 250) return; // tab switch or first frame
+function watchFrameCost(runtime: Runtime, cost: number): void {
+  if (cost <= 0 || cost > 250) return;
   runtime.frameCostEma = runtime.frameCostEma == null ? cost : runtime.frameCostEma * 0.9 + cost * 0.1;
   if ((runtime.degradeStep ?? 0) >= 2 || (runtime.frameCostEma ?? 0) < 34) { runtime.slowFrameStreak = 0; return; }
   runtime.slowFrameStreak = (runtime.slowFrameStreak ?? 0) + 1;
@@ -974,8 +931,10 @@ export function ScenePreview({
   isolateRoomId = null,
   hiddenWallIds = [],
   snapshotToken = 0,
-  quality = 'HIGH',
+  quality = 'BALANCED',
+  lighting = 'DAYLIGHT',
   daylight = 1,
+  onTelemetry,
   onSelect,
   onChangeObject,
 }: Props) {
@@ -983,8 +942,10 @@ export function ScenePreview({
   const runtimeRef = useRef<Runtime | null>(null);
   const selectRef = useRef(onSelect);
   const changeRef = useRef(onChangeObject);
+  const telemetryRef = useRef(onTelemetry);
   selectRef.current = onSelect;
   changeRef.current = onChangeObject;
+  telemetryRef.current = onTelemetry;
   const hiddenSet = useMemo(() => new Set(hiddenWallIds), [hiddenWallIds]);
 
   useEffect(() => {
@@ -996,18 +957,19 @@ export function ScenePreview({
     scene.fog = new THREE.FogExp2(0x091311, 0.012);
 
     const camera = new THREE.PerspectiveCamera(42, 1, 0.04, 300);
+    const profile = qualityProfile(quality);
     const renderer = new THREE.WebGLRenderer({
-      antialias: quality !== 'LOW',
+      antialias: profile.antialias,
       preserveDrawingBuffer: true,
       powerPreference: 'high-performance',
     });
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, quality === 'HIGH' ? 2 : quality === 'MEDIUM' ? 1.5 : 1);
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, profile.maxPixelRatio);
     renderer.setPixelRatio(pixelRatio);
-    renderer.shadowMap.enabled = quality !== 'LOW';
+    renderer.shadowMap.enabled = profile.shadows;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = quality === 'HIGH' ? 1.12 : 1.04;
+    renderer.toneMappingExposure = getLightingPreset(lighting).toneExposure;
     host.appendChild(renderer.domElement);
 
     const pmrem = new THREE.PMREMGenerator(renderer);
@@ -1035,8 +997,8 @@ export function ScenePreview({
     const sun = new THREE.DirectionalLight(0xfff1d5, 3.4);
     sun.position.set(-5, 11, 7);
     sun.target = sunTarget;
-    sun.castShadow = quality !== 'LOW';
-    const shadowSize = quality === 'HIGH' ? 2048 : 1536;
+    sun.castShadow = profile.shadows;
+    const shadowSize = profile.shadowMapSize;
     sun.shadow.mapSize.set(shadowSize, shadowSize);
     sun.shadow.camera.near = 0.4;
     sun.shadow.camera.far = 60;
@@ -1090,7 +1052,7 @@ export function ScenePreview({
        multiplied every frame's cost roughly fourfold. MEDIUM — the default —
        renders directly with tone mapping and shadows, which reads nearly
        identically in a lit interior and is dramatically cheaper on iGPUs. */
-    if (quality === 'HIGH') {
+    if (profile.postProcessing !== 'OFF') {
       composer = new EffectComposer(renderer);
       composer.setPixelRatio(Math.min(pixelRatio, 1.5));
       composer.addPass(new RenderPass(scene, camera));
@@ -1099,8 +1061,10 @@ export function ScenePreview({
       ssao.minDistance = 0.0015;
       ssao.maxDistance = 0.1;
       composer.addPass(ssao);
-      smaa = new SMAAPass();
-      composer.addPass(smaa);
+      if (profile.postProcessing === 'SSAO_SMAA') {
+        smaa = new SMAAPass();
+        composer.addPass(smaa);
+      }
       composer.addPass(new OutputPass());
     }
 
@@ -1135,6 +1099,7 @@ export function ScenePreview({
       sunTarget,
       fill,
       warm,
+      hemisphere,
       maxAnisotropy: renderer.capabilities.getMaxAnisotropy(),
       quality,
     };
@@ -1147,7 +1112,7 @@ export function ScenePreview({
     invalidate();
 
     new RGBELoader().load(
-      `${ASSET_ROOT}/hdri/studio_day_1k.hdr`,
+      `${LOCAL_ASSET_ROOT}/hdri/studio_day_1k.hdr`,
       (hdr) => {
         if (runtimeRef.current !== runtime) {
           hdr.dispose();
@@ -1247,8 +1212,15 @@ export function ScenePreview({
       if (cameraMoved || runtime.needsRender) {
         runtime.needsRender = false;
         runtime.box?.update();
+        const startedAt = performance.now();
         render(runtime);
-        watchFrameCost(runtime);
+        const frameCost = performance.now() - startedAt;
+        watchFrameCost(runtime, frameCost);
+        const now = performance.now();
+        if (telemetryRef.current && now - (runtime.lastTelemetryAt ?? 0) >= 500) {
+          runtime.lastTelemetryAt = now;
+          telemetryRef.current(rendererTelemetry(runtime.renderer, runtime.quality, runtime.frameCostEma ?? frameCost, (runtime.degradeStep ?? 0) > 0));
+        }
       }
       frame = requestAnimationFrame(animate);
     };
@@ -1400,11 +1372,24 @@ export function ScenePreview({
       runtime.controls.maxPolarAngle = Math.PI * 0.495;
     }
 
+    const lights = getLightingPreset(lighting);
+    runtime.scene.background = new THREE.Color(lights.background);
+    runtime.scene.fog = new THREE.FogExp2(lights.fog, lights.fogDensity);
+    runtime.renderer.toneMappingExposure = lights.toneExposure;
+    runtime.scene.environmentIntensity = lights.environmentIntensity;
+    runtime.hemisphere.color.setHex(lights.hemisphereSky);
+    runtime.hemisphere.groundColor.setHex(lights.hemisphereGround);
+    runtime.hemisphere.intensity = lights.hemisphereIntensity * daylight;
+    runtime.fill.color.setHex(lights.fillColor);
+    runtime.fill.intensity = lights.fillIntensity * daylight;
     runtime.fill.position.set(centerX + span * 0.38, 2.6, centerZ - span * 0.32);
+    runtime.warm.color.setHex(lights.warmColor);
+    runtime.warm.intensity = lights.warmIntensity;
     runtime.warm.position.set(centerX - span * 0.34, 1.9, centerZ + span * 0.34);
-    runtime.sun.position.set(centerX - span * 0.65, Math.max(9, span * 1.1), centerZ + span * 0.55);
+    runtime.sun.color.setHex(lights.sunColor);
+    runtime.sun.position.set(centerX + span * lights.sunAzimuth, Math.max(6, span * lights.sunElevation), centerZ + span * 0.55);
     runtime.sunTarget.position.set(centerX, 0.8, centerZ);
-    runtime.sun.intensity = 3.4 * daylight;
+    runtime.sun.intensity = lights.sunIntensity * daylight;
     runtime.sun.target.updateMatrixWorld();
 
     const shadowRadius = Math.max(5, span * 0.66);
@@ -1418,7 +1403,7 @@ export function ScenePreview({
     runtime.sun.shadow.needsUpdate = true;
     runtime.controls.update();
     runtimeRef.current?.invalidate?.();
-  }, [cameraMode, model, daylight, isolateRoomId]);
+  }, [cameraMode, model, daylight, lighting, isolateRoomId]);
 
   useEffect(() => {
     if (!snapshotToken) return;
@@ -1436,7 +1421,7 @@ export function ScenePreview({
 
   return (
     <div className="scene-preview scene-preview-v3" ref={hostRef}>
-      <div className="scene-tip">HDR environment · local GLB catalogue · PBR textures · ambient occlusion · soft shadows</div>
+      <div className="scene-tip">Visual Engine v1 · PBR registry · lighting presets · LOD-ready assets · adaptive quality</div>
     </div>
   );
 }

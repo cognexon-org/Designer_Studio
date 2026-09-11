@@ -18,12 +18,15 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { normalizeFurniture, roomCenter } from '@/lib/model';
 import type { DesignModel, FurnitureObject, OpeningModel, RoomModel, WallModel } from '@/lib/types';
+import { lightingPreset as getLightingPreset, type LightingPresetName } from '@/lib/visual/lighting';
+import { qualityProfile, type RenderQuality } from '@/lib/visual/quality';
 
 interface Props {
   model: DesignModel;
   /** roomId -> equirectangular JPEG from the Mode A stitcher. */
   panoramas?: Record<string, string>;
-  quality?: 'LOW' | 'MEDIUM' | 'HIGH';
+  quality?: RenderQuality;
+  lighting?: LightingPresetName;
   daylight?: number;
   onExit?: () => void;
 }
@@ -80,7 +83,7 @@ function makeMarkerTexture(): THREE.Texture {
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
 }
 
-export function Walkthrough({ model, panoramas = {}, quality = 'HIGH', daylight = 1, onExit }: Props) {
+export function Walkthrough({ model, panoramas = {}, quality = 'BALANCED', lighting = 'DAYLIGHT', daylight = 1, onExit }: Props) {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const rt = useRef<any>(null);
   const [locked, setLocked] = useState(false);
@@ -94,25 +97,29 @@ export function Walkthrough({ model, panoramas = {}, quality = 'HIGH', daylight 
   useEffect(() => {
     const host = hostRef.current; if (!host) return;
 
+    const profile = qualityProfile(quality);
+    const lights = getLightingPreset(lighting);
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0a0f18);
+    scene.background = new THREE.Color(lights.background);
+    scene.fog = new THREE.FogExp2(lights.fog, lights.fogDensity);
     const camera = new THREE.PerspectiveCamera(72, 1, 0.05, 400);
-    const renderer = new THREE.WebGLRenderer({ antialias: quality !== 'LOW', preserveDrawingBuffer: true });
-    renderer.setPixelRatio(Math.min(devicePixelRatio, quality === 'HIGH' ? 2 : 1.4));
-    renderer.shadowMap.enabled = quality !== 'LOW';
+    const renderer = new THREE.WebGLRenderer({ antialias: profile.antialias, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, profile.maxPixelRatio));
+    renderer.shadowMap.enabled = profile.shadows;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.02;
+    renderer.toneMappingExposure = lights.toneExposure;
     host.appendChild(renderer.domElement);
 
     const shell = new THREE.Group(); scene.add(shell);
     const markersGroup = new THREE.Group(); scene.add(markersGroup);
 
-    scene.add(new THREE.HemisphereLight(0xdcecff, 0x2a2620, 1.15 * daylight));
-    const sun = new THREE.DirectionalLight(0xffe9c9, 2.4 * daylight);
-    sun.position.set(-9, 14, -6); sun.castShadow = quality !== 'LOW';
-    sun.shadow.mapSize.set(quality === 'HIGH' ? 2048 : 1024, quality === 'HIGH' ? 2048 : 1024);
+    scene.environmentIntensity = lights.environmentIntensity;
+    scene.add(new THREE.HemisphereLight(lights.hemisphereSky, lights.hemisphereGround, lights.hemisphereIntensity * daylight));
+    const sun = new THREE.DirectionalLight(lights.sunColor, lights.sunIntensity * daylight);
+    sun.position.set(-9, 14, -6); sun.castShadow = profile.shadows;
+    sun.shadow.mapSize.set(profile.shadowMapSize, profile.shadowMapSize);
     sun.shadow.camera.left = -18; sun.shadow.camera.right = 18;
     sun.shadow.camera.top = 18; sun.shadow.camera.bottom = -18;
     sun.shadow.bias = -0.0006; sun.shadow.normalBias = 0.02;
@@ -276,7 +283,7 @@ export function Walkthrough({ model, panoramas = {}, quality = 'HIGH', daylight 
       const ceil = new THREE.Mesh(cg, pbr(matCache, 0xf4f2ee, 0.98));
       ceil.position.y = r.heightM ?? 2.8; shell.add(ceil);
 
-      const lamp = new THREE.PointLight(0xfff0d8, 8 * daylight, 8, 2);
+      const lamp = new THREE.PointLight(lights.warmColor, profile.maxDynamicRoomLights > 0 ? 8 * daylight : 0, 8, 2);
       lamp.position.set(ctr[0], (r.heightM ?? 2.8) - 0.45, ctr[1]); shell.add(lamp);
 
       (r.walls ?? []).forEach(w => {
@@ -535,7 +542,7 @@ export function Walkthrough({ model, panoramas = {}, quality = 'HIGH', daylight 
       cubeTarget.dispose(); renderer.dispose();
       host.removeChild(cv);
     };
-  }, [model, rooms, panoramas, quality, daylight]);
+  }, [model, rooms, panoramas, quality, lighting, daylight]);
 
   const panoCount = rooms.filter(r => panoramas[r.id]).length;
 

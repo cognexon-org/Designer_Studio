@@ -3,7 +3,7 @@ import type {
   CaptureSummary, CatalogueAsset, ClientShareLink, DesignComment, DesignModel, DesignOption, DesignProject,
   EvidenceResponse, ExportFormat, ExportRecord, GeometryProposal, MaterialRecord, MeasurementModel, ModelReview,
   ProcessingJob, ProductRecord, PublicDesignManifest, PublicShareDesign, PanoramaAsset,
-  ProgressProject, ProgressProjectSummary, CaptureSnapshot, ProjectIssue } from './types';
+  ProgressProject, ProgressProjectSummary, CaptureSnapshot, ProjectIssue, VisualRegistry } from './types';
 
 export class ApiError extends Error {
   constructor(public status: number, public payload: unknown) {
@@ -83,6 +83,7 @@ export const api = {
   createRender: (projectId: string, quality: 'PREVIEW' | 'FINAL', mode: 'STILL' | 'PANORAMA' | 'WALKTHROUGH', designOptionId?: string, settings?: Record<string, unknown>) => request<{ renderId: string; jobId: string }>(`/v2/design-projects/${projectId}/renders`, { method: 'POST', body: JSON.stringify({ quality, mode, designOptionId, settings }) }),
   getExportUrl: (exportId: string) => request<{ url: string; expiresInSeconds: number; mimeType: string; format: string }>(`/v2/exports/${exportId}/download-url`),
   listCatalogueAssets: (q?: string, category?: string) => request<CatalogueAsset[]>(`/v2/catalogue/assets?${new URLSearchParams({ ...(q ? { q } : {}), ...(category ? { category } : {}) }).toString()}`),
+  getVisualRegistry: (category?: string) => request<VisualRegistry>(`/v2/visual-registry?${new URLSearchParams(category ? { category } : {}).toString()}`),
   listProducts: (q?: string, category?: string) => request<ProductRecord[]>(`/v2/products?${new URLSearchParams({ ...(q ? { q } : {}), ...(category ? { category } : {}) }).toString()}`),
   listMaterials: (q?: string, category?: string) => request<MaterialRecord[]>(`/v2/materials?${new URLSearchParams({ ...(q ? { q } : {}), ...(category ? { category } : {}) }).toString()}`),
   getPublicDesign: (slug: string) => request<PublicDesignManifest>(`/v1/public/designs/${slug}/manifest`, {}, false),

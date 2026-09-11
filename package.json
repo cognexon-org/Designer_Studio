@@ -9,7 +9,9 @@
     "dev": "next dev -p 3002",
     "build": "next build",
     "start": "next start -p 3002",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "visual:audit": "node scripts/visual-asset-audit.mjs public/assets/realistic --out=docs/VISUAL_ASSET_AUDIT.json",
+    "visual:audit:strict": "node scripts/visual-asset-audit.mjs public/assets/realistic --strict --out=docs/VISUAL_ASSET_AUDIT.json"
   },
   "dependencies": {
     "next": "15.5.20",

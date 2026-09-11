@@ -179,6 +179,65 @@ export interface ModelReview { id: string; version: number; decision: string; no
 export interface ClientShareLink { id: string; slug: string; url?: string; version: number; designOptionId?: string | null; permissions?: Record<string, unknown>; expiresAt?: string | null; revokedAt?: string | null; createdAt: string; }
 export interface ExportRecord { id: string; projectId: string; designOptionId?: string | null; version: number; format: string; status: 'QUEUED' | 'RUNNING' | 'SUCCEEDED' | 'FAILED'; mimeType?: string | null; sizeBytes?: number | string | null; metadata?: Record<string, unknown> | null; error?: string | null; createdAt: string; completedAt?: string | null; }
 
+
+export interface VisualAssetLod {
+  level: 'HIGH' | 'MEDIUM' | 'LOW';
+  objectKey?: string;
+  url?: string;
+  maxDistanceM?: number;
+  maxTriangles?: number;
+}
+
+export interface VisualAssetContract {
+  fit: 'UNIFORM_CONTAIN' | 'EXACT_SIZE' | 'NATIVE';
+  coordinateSystem: 'Y_UP' | 'Z_UP';
+  unit: 'metre' | 'centimetre' | 'millimetre';
+  lods: VisualAssetLod[];
+  collision: {
+    shape: 'BOX' | 'SPHERE' | 'CYLINDER' | 'CONVEX';
+    boundsM?: { width: number; depth: number; height: number };
+    centerM?: [number, number, number];
+  };
+  castShadow: boolean;
+  receiveShadow: boolean;
+  tags: string[];
+}
+
+export interface VisualRegistryAsset {
+  id: string;
+  name: string;
+  category: string;
+  dimensionsM: Record<string, number>;
+  anchor?: Record<string, unknown> | null;
+  placementRules?: Record<string, unknown> | null;
+  polygonCount?: number | null;
+  textureBytes?: number | string | null;
+  thumbnailUrl?: string | null;
+  primaryUrl?: string;
+  visual: VisualAssetContract;
+}
+
+export interface VisualRegistryMaterial {
+  id: string;
+  name: string;
+  category: string;
+  supplier?: string | null;
+  sku?: string | null;
+  textureSet: Partial<Record<'baseColor' | 'normal' | 'roughness' | 'metallic' | 'ao' | 'height' | 'emissive' | 'opacity', string>>;
+  physical?: Record<string, unknown> | null;
+  realWorldSizeM?: Record<string, number> | null;
+  costPerUnit?: number | null;
+  unit?: string | null;
+}
+
+export interface VisualRegistry {
+  version: string;
+  expiresInSeconds: number;
+  generatedAt: string;
+  assets: VisualRegistryAsset[];
+  materials: VisualRegistryMaterial[];
+}
+
 export interface CatalogueAsset { id: string; name: string; category: string; glbObjectKey: string; thumbnailKey?: string | null; dimensionsM: Record<string, number>; anchor?: Record<string, unknown>; placementRules?: Record<string, unknown>; polygonCount?: number | null; textureBytes?: number | string | null; metadata?: Record<string, unknown> | null; }
 export interface MaterialRecord { id: string; name: string; category: string; supplier?: string | null; sku?: string | null; textureSet?: Record<string, unknown> | null; physical?: Record<string, unknown> | null; realWorldSizeM?: Record<string, number> | null; costPerUnit?: number | null; unit?: string | null; }
 export interface ProductVariant { id: string; name: string; materialId?: string | null; price?: number | null; currency?: string | null; priceVersion?: string | null; availability?: string | null; metadata?: Record<string, unknown> | null; }

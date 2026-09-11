@@ -1,0 +1,863 @@
+{
+  "version": "1.0",
+  "models": [
+    {
+      "id": "bed",
+      "category": "BED",
+      "primary": "models/bed.glb",
+      "nativeBoundsM": [
+        1.96,
+        1.1,
+        2.065
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 1.96,
+          "height": 1.1,
+          "depth": 2.065
+        },
+        "centerM": [
+          0,
+          0.55,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/bed.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "bed_queen",
+      "category": "BED_QUEEN",
+      "primary": "models/bed_queen.glb",
+      "nativeBoundsM": [
+        1.63,
+        1.0,
+        2.0
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 1.63,
+          "height": 1.0,
+          "depth": 2.0
+        },
+        "centerM": [
+          0,
+          0.5,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/bed_queen.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "chair",
+      "category": "CHAIR",
+      "primary": "models/chair.glb",
+      "nativeBoundsM": [
+        0.78,
+        1.079051,
+        0.819427
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 0.78,
+          "height": 1.079051,
+          "depth": 0.819427
+        },
+        "centerM": [
+          0,
+          0.5395255,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/chair.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "coffee_table",
+      "category": "COFFEE_TABLE",
+      "primary": "models/coffee_table.glb",
+      "nativeBoundsM": [
+        1.14,
+        0.531913,
+        1.14
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 1.14,
+          "height": 0.531913,
+          "depth": 1.14
+        },
+        "centerM": [
+          0,
+          0.2659565,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/coffee_table.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "console",
+      "category": "CONSOLE",
+      "primary": "models/console.glb",
+      "nativeBoundsM": [
+        0.99,
+        0.7075,
+        0.423
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 0.99,
+          "height": 0.7075,
+          "depth": 0.423
+        },
+        "centerM": [
+          0,
+          0.35375,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/console.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "desk",
+      "category": "DESK",
+      "primary": "models/desk.glb",
+      "nativeBoundsM": [
+        1.1,
+        0.735,
+        0.55
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 1.1,
+          "height": 0.735,
+          "depth": 0.55
+        },
+        "centerM": [
+          0,
+          0.3675,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/desk.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "dining_chair",
+      "category": "DINING_CHAIR",
+      "primary": "models/dining_chair.glb",
+      "nativeBoundsM": [
+        0.46,
+        1.043442,
+        0.513166
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 0.46,
+          "height": 1.043442,
+          "depth": 0.513166
+        },
+        "centerM": [
+          0,
+          0.521721,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/dining_chair.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "dining_table",
+      "category": "DINING_TABLE",
+      "primary": "models/dining_table.glb",
+      "nativeBoundsM": [
+        1.55,
+        0.758077,
+        0.9
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 1.55,
+          "height": 0.758077,
+          "depth": 0.9
+        },
+        "centerM": [
+          0,
+          0.3790385,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/dining_table.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "fridge",
+      "category": "FRIDGE",
+      "primary": "models/fridge.glb",
+      "nativeBoundsM": [
+        0.72,
+        1.84,
+        0.77
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 0.72,
+          "height": 1.84,
+          "depth": 0.77
+        },
+        "centerM": [
+          0,
+          0.92,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/fridge.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "kitchen_counter",
+      "category": "KITCHEN_COUNTER",
+      "primary": "models/kitchen_counter.glb",
+      "nativeBoundsM": [
+        1.86,
+        0.92,
+        0.698511
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 1.86,
+          "height": 0.92,
+          "depth": 0.698511
+        },
+        "centerM": [
+          0,
+          0.46,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/kitchen_counter.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "kitchen_counter_short",
+      "category": "KITCHEN_COUNTER_SHORT",
+      "primary": "models/kitchen_counter_short.glb",
+      "nativeBoundsM": [
+        1.26,
+        0.92,
+        0.698511
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 1.26,
+          "height": 0.92,
+          "depth": 0.698511
+        },
+        "centerM": [
+          0,
+          0.46,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/kitchen_counter_short.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "lamp",
+      "category": "LAMP",
+      "primary": "models/lamp.glb",
+      "nativeBoundsM": [
+        1.12,
+        1.83,
+        0.56
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 1.12,
+          "height": 1.83,
+          "depth": 0.56
+        },
+        "centerM": [
+          0,
+          0.915,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/lamp.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "nightstand",
+      "category": "NIGHTSTAND",
+      "primary": "models/nightstand.glb",
+      "nativeBoundsM": [
+        0.58,
+        0.63,
+        0.493
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 0.58,
+          "height": 0.63,
+          "depth": 0.493
+        },
+        "centerM": [
+          0,
+          0.315,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/nightstand.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "plant",
+      "category": "PLANT",
+      "primary": "models/plant.glb",
+      "nativeBoundsM": [
+        0.6,
+        1.72,
+        0.663394
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 0.6,
+          "height": 1.72,
+          "depth": 0.663394
+        },
+        "centerM": [
+          0,
+          0.86,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/plant.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "shower",
+      "category": "SHOWER",
+      "primary": "models/shower.glb",
+      "nativeBoundsM": [
+        0.9025,
+        2.0,
+        0.922
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 0.9025,
+          "height": 2.0,
+          "depth": 0.922
+        },
+        "centerM": [
+          0,
+          1.0,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/shower.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "sofa",
+      "category": "SOFA",
+      "primary": "models/sofa.glb",
+      "nativeBoundsM": [
+        2.24,
+        1.038035,
+        0.893477
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 2.24,
+          "height": 1.038035,
+          "depth": 0.893477
+        },
+        "centerM": [
+          0,
+          0.5190175,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/sofa.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "task_chair",
+      "category": "TASK_CHAIR",
+      "primary": "models/task_chair.glb",
+      "nativeBoundsM": [
+        0.48,
+        1.117613,
+        0.580859
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 0.48,
+          "height": 1.117613,
+          "depth": 0.580859
+        },
+        "centerM": [
+          0,
+          0.5588065,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/task_chair.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "tv_unit",
+      "category": "TV_UNIT",
+      "primary": "models/tv_unit.glb",
+      "nativeBoundsM": [
+        2.05,
+        1.54,
+        0.504
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 2.05,
+          "height": 1.54,
+          "depth": 0.504
+        },
+        "centerM": [
+          0,
+          0.77,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/tv_unit.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "vanity",
+      "category": "VANITY",
+      "primary": "models/vanity.glb",
+      "nativeBoundsM": [
+        1.2,
+        1.74,
+        0.5975
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 1.2,
+          "height": 1.74,
+          "depth": 0.5975
+        },
+        "centerM": [
+          0,
+          0.87,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/vanity.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "wardrobe",
+      "category": "WARDROBE",
+      "primary": "models/wardrobe.glb",
+      "nativeBoundsM": [
+        1.66,
+        2.2,
+        0.702
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 1.66,
+          "height": 2.2,
+          "depth": 0.702
+        },
+        "centerM": [
+          0,
+          1.1,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/wardrobe.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    },
+    {
+      "id": "wc",
+      "category": "WC",
+      "primary": "models/wc.glb",
+      "nativeBoundsM": [
+        0.6,
+        0.8475,
+        0.88
+      ],
+      "fit": "UNIFORM_CONTAIN",
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "collision": {
+        "shape": "BOX",
+        "boundsM": {
+          "width": 0.6,
+          "height": 0.8475,
+          "depth": 0.88
+        },
+        "centerM": [
+          0,
+          0.42375,
+          0
+        ]
+      },
+      "lods": [
+        {
+          "level": "HIGH",
+          "file": "models/wc.glb",
+          "maxDistanceM": 8
+        }
+      ],
+      "castShadow": true,
+      "receiveShadow": true
+    }
+  ],
+  "materials": [
+    {
+      "id": "oak",
+      "realWorldSizeM": [
+        1.8,
+        1.8
+      ],
+      "channels": {
+        "baseColor": "pbr/oak/basecolor.webp",
+        "normal": "pbr/oak/normal.webp",
+        "roughness": "pbr/oak/roughness.webp",
+        "ao": "pbr/oak/ao.webp"
+      }
+    },
+    {
+      "id": "walnut",
+      "realWorldSizeM": [
+        1.6,
+        1.6
+      ],
+      "channels": {
+        "baseColor": "pbr/walnut/basecolor.webp",
+        "normal": "pbr/walnut/normal.webp",
+        "roughness": "pbr/walnut/roughness.webp",
+        "ao": "pbr/walnut/ao.webp"
+      }
+    },
+    {
+      "id": "marble",
+      "realWorldSizeM": [
+        2.4,
+        2.4
+      ],
+      "channels": {
+        "baseColor": "pbr/marble/basecolor.webp",
+        "normal": "pbr/marble/normal.webp",
+        "roughness": "pbr/marble/roughness.webp",
+        "ao": "pbr/marble/ao.webp"
+      }
+    },
+    {
+      "id": "tile",
+      "realWorldSizeM": [
+        1.2,
+        1.2
+      ],
+      "channels": {
+        "baseColor": "pbr/tile/basecolor.webp",
+        "normal": "pbr/tile/normal.webp",
+        "roughness": "pbr/tile/roughness.webp",
+        "ao": "pbr/tile/ao.webp"
+      }
+    },
+    {
+      "id": "plaster",
+      "realWorldSizeM": [
+        2.2,
+        2.2
+      ],
+      "channels": {
+        "baseColor": "pbr/plaster/basecolor.webp",
+        "normal": "pbr/plaster/normal.webp",
+        "roughness": "pbr/plaster/roughness.webp",
+        "ao": "pbr/plaster/ao.webp"
+      }
+    },
+    {
+      "id": "fabric_sand",
+      "realWorldSizeM": [
+        0.55,
+        0.55
+      ],
+      "channels": {
+        "baseColor": "pbr/fabric_sand/basecolor.webp",
+        "normal": "pbr/fabric_sand/normal.webp",
+        "roughness": "pbr/fabric_sand/roughness.webp",
+        "ao": "pbr/fabric_sand/ao.webp"
+      }
+    },
+    {
+      "id": "fabric_charcoal",
+      "realWorldSizeM": [
+        0.55,
+        0.55
+      ],
+      "channels": {
+        "baseColor": "pbr/fabric_charcoal/basecolor.webp",
+        "normal": "pbr/fabric_charcoal/normal.webp",
+        "roughness": "pbr/fabric_charcoal/roughness.webp",
+        "ao": "pbr/fabric_charcoal/ao.webp"
+      }
+    },
+    {
+      "id": "rug",
+      "realWorldSizeM": [
+        1.1,
+        1.1
+      ],
+      "channels": {
+        "baseColor": "pbr/rug/basecolor.webp",
+        "normal": "pbr/rug/normal.webp",
+        "roughness": "pbr/rug/roughness.webp",
+        "ao": "pbr/rug/ao.webp"
+      }
+    },
+    {
+      "id": "brushed_metal",
+      "realWorldSizeM": [
+        0.45,
+        0.45
+      ],
+      "channels": {
+        "baseColor": "pbr/brushed_metal/basecolor.webp",
+        "normal": "pbr/brushed_metal/normal.webp",
+        "roughness": "pbr/brushed_metal/roughness.webp",
+        "ao": "pbr/brushed_metal/ao.webp"
+      }
+    }
+  ],
+  "environment": {
+    "daylight": "hdri/studio_day_1k.hdr"
+  },
+  "notes": "Patch 03 local visual registry. Backend catalogue assets may override local URLs with signed tenant-specific assets."
+}

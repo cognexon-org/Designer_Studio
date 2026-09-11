@@ -759,3 +759,73 @@ label { font-size: 12px; font-weight: 700; color: var(--ink-2); }
   font-weight: 600;
   opacity: 0.86;
 }
+
+/* --------------------------------------------------------------------------
+   ProgressionAi Visual Engine v1 — Patch 03
+   -------------------------------------------------------------------------- */
+.visual-hud {
+  position: fixed;
+  right: 18px;
+  bottom: 54px;
+  z-index: 32;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: min(720px, calc(100vw - 36px));
+  padding: 8px 10px;
+  border: 1px solid rgba(121, 232, 190, .22);
+  border-radius: 10px;
+  background: rgba(7, 18, 16, .88);
+  color: #d9e8e2;
+  box-shadow: 0 10px 32px rgba(0,0,0,.3);
+  backdrop-filter: blur(10px);
+  font-size: 11px;
+  pointer-events: none;
+}
+.visual-hud strong { color: #7fe5bd; letter-spacing: .05em; }
+.visual-hud span { color: #c5d5cf; }
+.visual-hud em { color: #ffcc86; font-style: normal; }
+.visual-hud-warning { border-color: rgba(255, 190, 97, .42); }
+.visual-hud-idle { opacity: .65; }
+
+.visual-regression-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto minmax(520px, 1fr) auto;
+  background: #06100e;
+  color: #eaf4ef;
+}
+.visual-regression-page > header,
+.visual-regression-page > footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 20px;
+  border-color: rgba(255,255,255,.08);
+  background: #0a1714;
+}
+.visual-regression-page > header { border-bottom: 1px solid rgba(255,255,255,.08); }
+.visual-regression-page > footer { border-top: 1px solid rgba(255,255,255,.08); font-size: 12px; color: #9fb5ad; }
+.visual-regression-page h1 { margin: 3px 0 0; font-size: 20px; }
+.visual-regression-page header span { color: #70d9ae; font-size: 11px; text-transform: uppercase; letter-spacing: .12em; }
+.visual-regression-controls { display: flex; gap: 10px; align-items: flex-end; }
+.visual-regression-controls label { display: grid; gap: 4px; font-size: 11px; color: #9fb5ad; }
+.visual-regression-controls select,
+.visual-regression-controls button {
+  min-height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.13);
+  background: #11231e;
+  color: #eff8f4;
+  padding: 0 10px;
+}
+.visual-regression-canvas { min-height: 520px; position: relative; }
+.visual-regression-canvas .scene-preview { min-height: 520px; height: 100%; }
+
+@media (max-width: 760px) {
+  .visual-regression-page > header { align-items: stretch; flex-direction: column; }
+  .visual-regression-controls { align-items: stretch; flex-wrap: wrap; }
+  .visual-regression-controls label { flex: 1 1 150px; }
+}
