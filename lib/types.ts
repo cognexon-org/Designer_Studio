@@ -348,6 +348,8 @@ export interface CaptureSnapshot {
   qualityReport?: Record<string, unknown> | null;
   processingVersion?: string | null;
   reconstructionVersion?: string | null;
+  designReferenceProjectId?: string | null;
+  designReferenceVersion?: number | null;
   floor?: SpatialFloorSummary | null;
   capture: {
     id: string;
@@ -390,6 +392,42 @@ export interface ProgressCompareResult {
 }
 
 export interface RegistrationAnchor { source: [number, number, number]; target: [number, number, number] }
+
+export interface ProgressDesignIntentVersion { version: number; label?: string | null; createdAt: string }
+export interface ProgressDesignIntentRoomMapping { captureRoomId: string; spatialRoomId?: string | null; name: string }
+export interface ProgressDesignIntent {
+  id: string; name: string; status: string; verificationStatus: string; activeVersion: number; updatedAt: string;
+  versions: ProgressDesignIntentVersion[]; roomMappings: ProgressDesignIntentRoomMapping[];
+}
+
+export interface DesignRealityDeviationCandidate {
+  kind: 'BOUNDARY_OFFSET' | 'AREA_DIFFERENCE' | 'CEILING_HEIGHT_DIFFERENCE';
+  magnitude: number; unit: 'm' | 'ratio'; tolerance: number; severity: 'LOW' | 'MEDIUM' | 'HIGH';
+  title: string; description: string; spatialRef: Record<string, unknown>; evidence: Record<string, unknown>;
+}
+
+export interface DesignRealityReport {
+  schemaVersion: 1; boundary: 'DETERMINISTIC_GEOMETRY_ONLY'; disclaimer: string; engineVersion: string;
+  designRoom: { id?: string; name?: string }; realityRoom: { id?: string; name?: string };
+  tolerances: { boundaryM: number; areaRatio: number; ceilingHeightM: number };
+  metrics: {
+    boundary: { meanM: number; p95M: number; maxM: number; sampleCount: number };
+    area: { designM2: number; realityM2: number; deltaM2: number; deltaRatio: number };
+    ceilingHeight?: { designM: number; realityM: number; deltaM: number };
+  };
+  overlay: { transformedDesignPolygon: Point2[]; realityPolygon: Point2[] };
+  deviations: DesignRealityDeviationCandidate[];
+}
+
+export interface DesignRealityEvaluation {
+  id: string; projectId: string; alignmentId: string; engineVersion: string; report: DesignRealityReport; createdById: string; createdAt: string;
+}
+
+export interface DesignRealityAlignment {
+  id: string; projectId: string; designProjectId: string; designVersion: number; realitySnapshotId: string; spatialRoomId: string;
+  transform: Record<string, unknown>; confidence: number; overlap?: number | null; method: string; version: string; diagnostics?: Record<string, unknown> | null;
+  status: string; verifiedById?: string | null; createdAt: string; updatedAt: string; evaluations?: DesignRealityEvaluation[];
+}
 
 export interface ProjectIssue {
   id: string;
@@ -444,4 +482,5 @@ export interface ProgressProject extends ProgressProjectSummary {
   registrations: CaptureRegistration[];
   issues: ProjectIssue[];
   observations: AiObservation[];
+  designRealityAlignments: DesignRealityAlignment[];
 }

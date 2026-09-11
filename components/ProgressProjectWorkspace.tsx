@@ -8,8 +8,9 @@ import { Icon } from './Icon';
 import { StatusBadge } from './StatusBadge';
 import { ProgressTimeline } from './ProgressTimeline';
 import { ProgressCompareWorkspace } from './ProgressCompareWorkspace';
+import { DesignRealityWorkspace } from './DesignRealityWorkspace';
 
-type WorkspaceTab = 'OVERVIEW' | 'TIMELINE' | 'REALITY' | 'DESIGN' | 'COMPARE' | 'ISSUES';
+type WorkspaceTab = 'OVERVIEW' | 'TIMELINE' | 'REALITY' | 'DESIGN' | 'DESIGN_REALITY' | 'COMPARE' | 'ISSUES';
 
 function fmt(value?: string | null) {
   if (!value) return '—';
@@ -126,8 +127,8 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
       {error && <div className="notice notice-error"><Icon name="warning"/>{error}</div>}
 
       <nav className="progress-tabs" aria-label="Project Studio sections">
-        {(['OVERVIEW','TIMELINE','REALITY','DESIGN','COMPARE','ISSUES'] as WorkspaceTab[]).map((item) => (
-          <button key={item} className={tab === item ? 'active' : ''} onClick={() => setTab(item)}>{item[0] + item.slice(1).toLowerCase()}</button>
+        {(['OVERVIEW','TIMELINE','REALITY','DESIGN','DESIGN_REALITY','COMPARE','ISSUES'] as WorkspaceTab[]).map((item) => (
+          <button key={item} className={tab === item ? 'active' : ''} onClick={() => setTab(item)}>{item === 'DESIGN_REALITY' ? 'Design ↔ Reality' : item[0] + item.slice(1).toLowerCase()}</button>
         ))}
       </nav>
 
@@ -197,6 +198,17 @@ export function ProgressProjectWorkspace({ projectId }: { projectId: string }) {
           <div className="progress-section-title"><div><p className="eyebrow">Design intent</p><h2>Connected design workspaces</h2></div></div>
           {designProjects.length ? <div className="project-grid compact-grid">{designProjects.map((design) => <Link className="project-card" href={`/studio/${design.id}`} key={design.id}><div className="project-card-body"><p className="project-type">Design version</p><h3>{design.name}</h3><p>{design.status}</p><small>Active version {design.activeVersion} · updated {fmt(design.updatedAt)}</small></div><span className="project-arrow"><Icon name="chevron"/></span></Link>)}</div> : <div className="empty-state"><Icon name="cube" size={48}/><h3>No design model linked yet</h3><p>Submit a Mode B scan to create an editable Design Studio project for this same property.</p></div>}
         </section>
+      )}
+
+      {tab === 'DESIGN_REALITY' && (
+        <DesignRealityWorkspace
+          projectId={projectId}
+          snapshots={timeline}
+          rooms={project.rooms}
+          alignments={project.designRealityAlignments ?? []}
+          onAlignment={(next) => setProject((current) => current ? { ...current, designRealityAlignments: [next, ...(current.designRealityAlignments ?? []).filter((item) => item.id !== next.id)] } : current)}
+          onIssue={(issue) => setProject((current) => current ? { ...current, issues: [issue, ...current.issues] } : current)}
+        />
       )}
 
       {tab === 'COMPARE' && (
