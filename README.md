@@ -1,4 +1,4 @@
-# PropertyTour360 Designer Studio v3.1.0
+# PropertyTour360 Designer Studio v3.2.1
 
 Unified Mode B browser Studio for `PropertyTour360_Backend_Unified_Final_v3.1.0`.
 
@@ -16,8 +16,10 @@ The canonical JSON model remains authoritative. GLB, PDF, DXF, images, video and
 - Real capture-derived project models; no sample model is used for backend projects.
 - Signed evidence viewer for RGB, Depth16, confidence and fused PLY point clouds.
 - Accept/reject geometry proposals with versioned backend updates.
-- Persistent Three.js renderer with room-level incremental rebuilds and GLB asset caching.
-- PBR materials, environment lighting, glass, shadows, rounded furniture and ACES tone mapping.
+- Persistent Three.js renderer with room-level incremental rebuilds, local GLB asset caching and selection-safe updates.
+- Bundled corrected Y-up GLB furniture catalogue with automatic type/name mapping, uniform proportion-preserving fitting and detailed procedural fallbacks.
+- Bundled full PBR material sets (base colour, normal, roughness and AO) for timber, stone, tile, plaster, fabric, rug and metal.
+- Local HDR environment lighting, fitted 4K/2K soft shadows, room fill lights, ACES tone mapping and SSAO/SMAA post-processing.
 - Optional Draco, Meshopt and KTX2 catalogue asset support.
 - Arbitrary room polygons, L-shaped/free-form rooms, draggable vertices and wall splitting.
 - Wall offset, length, thickness, structural status and material editing.
@@ -65,4 +67,4 @@ Meshopt support is built into Three.js. Draco and KTX2 support is enabled when t
 - Publishing is blocked by backend QA and confirmation rules.
 - Structural work, fabrication dimensions, services and regulatory compliance require qualified professional verification.
 
-See `docs/UNIFIED_BACKEND_CONTRACT.md`, `docs/STUDIO_IMPLEMENTATION_MATRIX.md` and `RELEASE_VALIDATION.md`.
+See `docs/GRAPHICS_UPGRADE_v3.2.md`, `docs/UNIFIED_BACKEND_CONTRACT.md`, `docs/STUDIO_IMPLEMENTATION_MATRIX.md` and `RELEASE_VALIDATION.md`.

@@ -1,18 +1,43 @@
 {
   "product": "PropertyTour360 Designer Studio",
-  "version": "3.1.0",
-  "releaseType": "unified Mode B source release",
+  "version": "3.2.1",
+  "releaseType": "graphics asset-orientation and proportion correction over v3.2.0",
   "backendContract": "PropertyTour360_Backend_Unified_Final_v3.1.0",
   "androidContract": "PropertyTour360_Android_ModeB_Complete_v3.1.0",
   "canonicalModelSchema": "2.1",
   "capturePackageSchema": "2.1",
-  "workspaces": ["CAPTURE_REVIEW", "SHELL_CORRECTION", "INTERIOR_DESIGN", "PRESENTATION"],
+  "workspaces": [
+    "CAPTURE_REVIEW",
+    "SHELL_CORRECTION",
+    "INTERIOR_DESIGN",
+    "PRESENTATION"
+  ],
   "clientRoute": "/d/{slug}",
   "validation": {
-    "typescriptParserFiles": 28,
-    "semanticTypecheck": "passed with local dependency declarations",
-    "canonicalModelSmoke": "passed",
-    "backendRouteFamilies": "18/18 matched",
-    "realNextProductionBuild": "required in deployment CI"
+    "typescriptParserFiles": 33,
+    "typescriptParser": "passed",
+    "assetPack": "21/21 corrected Y-up GLB assets, 9/9 PBR sets and HDR validated",
+    "canonicalModelSmoke": "unchanged schema; sample furniture dimensions corrected to documented [width, depth, height] order",
+    "backendRouteFamilies": "unchanged; no API contract modifications",
+    "realNextProductionBuild": "required in deployment CI because the packaging registry was incomplete"
+  },
+  "graphics": {
+    "renderer": "persistent Three.js WebGL renderer",
+    "localGlbModels": 21,
+    "pbrTextureSets": 9,
+    "environment": "bundled 1K Radiance HDR",
+    "postProcessing": [
+      "SSAO",
+      "SMAA (high quality)",
+      "OutputPass"
+    ],
+    "shadowProfiles": {
+      "HIGH": "4096 directional + selective 512 room lights",
+      "MEDIUM": "2048 directional",
+      "LOW": "shadows/post-processing disabled"
+    },
+    "fallback": "detailed procedural furniture remains available",
+    "assetCoordinateSystem": "Y-up glTF, metre units",
+    "assetFitting": "uniform contain scaling; no per-axis distortion"
   }
 }

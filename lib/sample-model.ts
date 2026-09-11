@@ -27,17 +27,17 @@ export const sampleDesignModel: DesignModel = {
         { id: 'living-wall-5', start: [0, 6.9], end: [0, 0], thicknessM: 0.1, material: 'Warm Linen', structuralStatus: 'UNKNOWN', openings: [{ id: 'living-w5-o0', type: 'WINDOW', offsetM: 5.0, widthM: 1.6, heightM: 2.2, bottomM: 0.5, sillM: 0.5 }, { id: 'living-w5-o1', type: 'DOOR', offsetM: 3.2, widthM: 1.0, heightM: 2.1, bottomM: 0 }] },
       ],
       objects: [
-        { id: 'living-obj-0', type: 'SOFA', name: '3-seat sofa', position: [1.6, 4.95], size: [2.3, 0.85, 0.95], rotationY: 0, material: 'Sand Weave' },
-        { id: 'living-obj-1', type: 'RUG', name: 'Wool rug', position: [1.6, 5.85], size: [2.4, 0.02, 1.4], rotationY: 0, material: 'Charcoal' },
-        { id: 'living-obj-2', type: 'TABLE', name: 'Coffee table', position: [1.6, 5.85], size: [1.1, 0.4, 0.6], rotationY: 0, material: 'Walnut' },
-        { id: 'living-obj-3', type: 'TV_UNIT', name: 'TV console', position: [1.6, 6.66], size: [2.0, 0.5, 0.42], rotationY: 3.1416, material: 'Walnut' },
-        { id: 'living-obj-4', type: 'PLANT', name: 'Fiddle fig', position: [0.55, 0.65], size: [0.6, 1.5, 0.6], rotationY: 0, material: 'Sage Accent' },
-        { id: 'living-obj-5', type: 'LAMP', name: 'Arc floor lamp', position: [5.4, 0.7], size: [0.42, 1.6, 0.42], rotationY: 0, material: 'Metal' },
-        { id: 'living-obj-6', type: 'TABLE', name: 'Dining table', position: [3.0, 1.05], size: [1.5, 0.76, 0.9], rotationY: 0, material: 'Oak' },
-        { id: 'living-obj-7', type: 'CHAIR', name: 'Dining chair', position: [2.4, 0.45], size: [0.46, 0.9, 0.5], rotationY: 3.1416, material: 'Oak' },
-        { id: 'living-obj-8', type: 'CHAIR', name: 'Dining chair', position: [3.6, 0.45], size: [0.46, 0.9, 0.5], rotationY: 3.1416, material: 'Oak' },
-        { id: 'living-obj-9', type: 'CHAIR', name: 'Dining chair', position: [2.4, 1.65], size: [0.46, 0.9, 0.5], rotationY: 0, material: 'Oak' },
-        { id: 'living-obj-10', type: 'CHAIR', name: 'Dining chair', position: [3.6, 1.65], size: [0.46, 0.9, 0.5], rotationY: 0, material: 'Oak' },
+        { id: 'living-obj-0', type: 'SOFA', name: '3-seat sofa', position: [1.55, 5.02], size: [2.24, 0.89, 1.04], rotationY: 0, material: 'Sand Weave' },
+        { id: 'living-obj-1', type: 'RUG', name: 'Wool rug', position: [1.65, 5.86], size: [2.55, 1.5, 0.025], rotationY: 0, material: 'Charcoal' },
+        { id: 'living-obj-2', type: 'TABLE', name: 'Coffee table', position: [1.65, 5.78], size: [1.14, 1.14, 0.53], rotationY: 0, material: 'Walnut' },
+        { id: 'living-obj-3', type: 'TV_UNIT', name: 'TV console', position: [1.6, 6.52], size: [2.05, 0.5, 1.54], rotationY: 0, material: 'Walnut' },
+        { id: 'living-obj-4', type: 'PLANT', name: 'Fiddle fig', position: [0.55, 0.66], size: [0.6, 0.62, 1.5], rotationY: 0, material: 'Sage Accent' },
+        { id: 'living-obj-5', type: 'LAMP', name: 'Arc floor lamp', position: [5.12, 0.72], size: [1.12, 0.56, 1.83], rotationY: 0, material: 'Metal' },
+        { id: 'living-obj-6', type: 'TABLE', name: 'Dining table', position: [3.0, 1.05], size: [1.55, 0.9, 0.76], rotationY: 0, material: 'Oak' },
+        { id: 'living-obj-7', type: 'CHAIR', name: 'Dining chair', position: [2.35, 0.42], size: [0.46, 0.51, 1.04], rotationY: 0, material: 'Oak' },
+        { id: 'living-obj-8', type: 'CHAIR', name: 'Dining chair', position: [3.65, 0.42], size: [0.46, 0.51, 1.04], rotationY: 0, material: 'Oak' },
+        { id: 'living-obj-9', type: 'CHAIR', name: 'Dining chair', position: [2.35, 1.68], size: [0.46, 0.51, 1.04], rotationY: 3.1416, material: 'Oak' },
+        { id: 'living-obj-10', type: 'CHAIR', name: 'Dining chair', position: [3.65, 1.68], size: [0.46, 0.51, 1.04], rotationY: 3.1416, material: 'Oak' },
       ]
     },
     {
@@ -54,9 +54,9 @@ export const sampleDesignModel: DesignModel = {
         { id: 'kitchen-wall-3', start: [3.2, 6.9], end: [3.2, 4.4], thicknessM: 0.1, material: 'Chalk White', structuralStatus: 'UNKNOWN', openings: [] },
       ],
       objects: [
-        { id: 'kitchen-obj-0', type: 'CABINET', name: 'Base units + granite', position: [5.49, 5.8], size: [0.62, 0.9, 2.0], rotationY: 3.1416, material: 'Charcoal' },
-        { id: 'kitchen-obj-1', type: 'CABINET', name: 'Return counter', position: [5.0, 4.72], size: [1.2, 0.9, 0.6], rotationY: 0, material: 'Charcoal' },
-        { id: 'kitchen-obj-2', type: 'CABINET', name: 'Refrigerator', position: [3.68, 6.52], size: [0.7, 1.8, 0.68], rotationY: 0, material: 'Metal' },
+        { id: 'kitchen-obj-0', type: 'CABINET', name: 'Base units + granite', position: [5.43, 5.8], size: [1.86, 0.7, 0.92], rotationY: -1.5708, material: 'Charcoal' },
+        { id: 'kitchen-obj-1', type: 'CABINET', name: 'Return counter', position: [4.95, 4.74], size: [1.26, 0.7, 0.92], rotationY: 0, material: 'Charcoal' },
+        { id: 'kitchen-obj-2', type: 'CABINET', name: 'Refrigerator', position: [3.68, 6.46], size: [0.72, 0.77, 1.84], rotationY: 3.1416, material: 'Metal' },
       ]
     },
     {
@@ -75,8 +75,8 @@ export const sampleDesignModel: DesignModel = {
         { id: 'hall-wall-5', start: [5.8, 5.7], end: [5.8, 0], thicknessM: 0.1, material: 'Chalk White', structuralStatus: 'UNKNOWN', openings: [{ id: 'hall-w5-o0', type: 'DOOR', offsetM: 3.0, widthM: 1.0, heightM: 2.1, bottomM: 0 }] },
       ],
       objects: [
-        { id: 'hall-obj-0', type: 'PLANT', name: 'Areca palm', position: [11.2, 5.15], size: [0.5, 1.3, 0.5], rotationY: 0, material: 'Sage Accent' },
-        { id: 'hall-obj-1', type: 'CABINET', name: 'Console table', position: [6.35, 0.36], size: [0.9, 0.75, 0.34], rotationY: 0, material: 'Walnut' },
+        { id: 'hall-obj-0', type: 'PLANT', name: 'Areca palm', position: [11.12, 5.14], size: [0.52, 0.57, 1.32], rotationY: 0, material: 'Sage Accent' },
+        { id: 'hall-obj-1', type: 'CABINET', name: 'Console table', position: [6.35, 0.38], size: [0.99, 0.42, 0.71], rotationY: 0, material: 'Walnut' },
       ]
     },
     {
@@ -93,12 +93,12 @@ export const sampleDesignModel: DesignModel = {
         { id: 'master-wall-3', start: [6.9, 4.6], end: [6.9, 0], thicknessM: 0.1, material: 'Warm Linen', structuralStatus: 'UNKNOWN', openings: [{ id: 'master-w3-o0', type: 'OPENING', offsetM: 1.85, widthM: 0.95, heightM: 2.1, bottomM: 0 }] },
       ],
       objects: [
-        { id: 'master-obj-0', type: 'BED', name: 'King bed + storage', position: [8.9, 1.6], size: [1.85, 0.95, 2.05], rotationY: 0, material: 'Sand Weave' },
-        { id: 'master-obj-1', type: 'CABINET', name: 'Nightstand', position: [7.75, 0.6], size: [0.45, 0.55, 0.4], rotationY: 0, material: 'Walnut' },
-        { id: 'master-obj-2', type: 'CABINET', name: 'Nightstand', position: [10.05, 0.6], size: [0.45, 0.55, 0.4], rotationY: 0, material: 'Walnut' },
-        { id: 'master-obj-3', type: 'CABINET', name: '4-door wardrobe', position: [11.28, 2.9], size: [0.62, 2.4, 2.0], rotationY: 3.1416, material: 'Oak' },
-        { id: 'master-obj-4', type: 'RUG', name: 'Bedside rug', position: [8.9, 3.55], size: [2.4, 0.02, 1.5], rotationY: 0, material: 'Charcoal' },
-        { id: 'master-obj-5', type: 'PLANT', name: 'Snake plant', position: [7.35, 4.1], size: [0.5, 1.2, 0.5], rotationY: 0, material: 'Sage Accent' },
+        { id: 'master-obj-0', type: 'BED', name: 'King bed + storage', position: [8.9, 1.65], size: [1.96, 2.06, 1.1], rotationY: 0, material: 'Sand Weave' },
+        { id: 'master-obj-1', type: 'CABINET', name: 'Nightstand', position: [7.72, 0.58], size: [0.58, 0.49, 0.63], rotationY: 0, material: 'Walnut' },
+        { id: 'master-obj-2', type: 'CABINET', name: 'Nightstand', position: [10.08, 0.58], size: [0.58, 0.49, 0.63], rotationY: 0, material: 'Walnut' },
+        { id: 'master-obj-3', type: 'CABINET', name: '4-door wardrobe', position: [11.23, 2.9], size: [1.66, 0.7, 2.2], rotationY: -1.5708, material: 'Oak' },
+        { id: 'master-obj-4', type: 'RUG', name: 'Bedside rug', position: [8.9, 3.55], size: [2.45, 1.52, 0.025], rotationY: 0, material: 'Charcoal' },
+        { id: 'master-obj-5', type: 'PLANT', name: 'Snake plant', position: [7.35, 4.1], size: [0.5, 0.52, 1.2], rotationY: 0, material: 'Sage Accent' },
       ]
     },
     {
@@ -115,11 +115,11 @@ export const sampleDesignModel: DesignModel = {
         { id: 'bed2-wall-3', start: [5.8, 8.6], end: [5.8, 5.7], thicknessM: 0.1, material: 'Sage Accent', structuralStatus: 'UNKNOWN', openings: [] },
       ],
       objects: [
-        { id: 'bed2-obj-0', type: 'BED', name: 'Queen bed', position: [7.3, 7.55], size: [1.55, 0.9, 2.0], rotationY: 3.1416, material: 'Sand Weave' },
-        { id: 'bed2-obj-1', type: 'CABINET', name: 'Nightstand', position: [6.16, 8.2], size: [0.42, 0.52, 0.38], rotationY: 0, material: 'Walnut' },
-        { id: 'bed2-obj-2', type: 'CABINET', name: '2-door wardrobe', position: [8.38, 6.6], size: [0.62, 2.2, 1.5], rotationY: 3.1416, material: 'Oak' },
-        { id: 'bed2-obj-3', type: 'TABLE', name: 'Study desk', position: [6.1, 6.6], size: [0.55, 0.75, 1.1], rotationY: 0, material: 'Oak' },
-        { id: 'bed2-obj-4', type: 'CHAIR', name: 'Task chair', position: [6.8, 6.25], size: [0.45, 0.9, 0.48], rotationY: -1.5708, material: 'Charcoal' },
+        { id: 'bed2-obj-0', type: 'BED', name: 'Queen bed', position: [7.3, 7.55], size: [1.63, 2.0, 1.0], rotationY: 3.1416, material: 'Sand Weave' },
+        { id: 'bed2-obj-1', type: 'CABINET', name: 'Nightstand', position: [6.16, 8.2], size: [0.5, 0.43, 0.56], rotationY: 0, material: 'Walnut' },
+        { id: 'bed2-obj-2', type: 'CABINET', name: '2-door wardrobe', position: [8.35, 6.55], size: [1.5, 0.63, 1.99], rotationY: -1.5708, material: 'Oak' },
+        { id: 'bed2-obj-3', type: 'TABLE', name: 'Study desk', position: [6.15, 6.55], size: [1.1, 0.55, 0.74], rotationY: 1.5708, material: 'Oak' },
+        { id: 'bed2-obj-4', type: 'CHAIR', name: 'Task chair', position: [6.82, 6.3], size: [0.48, 0.58, 1.12], rotationY: -1.5708, material: 'Charcoal' },
       ]
     },
     {
@@ -136,9 +136,9 @@ export const sampleDesignModel: DesignModel = {
         { id: 'bath-wall-3', start: [8.7, 8.0], end: [8.7, 5.7], thicknessM: 0.1, material: 'Chalk White', structuralStatus: 'UNKNOWN', openings: [] },
       ],
       objects: [
-        { id: 'bath-obj-0', type: 'CABINET', name: 'Vanity + basin', position: [10.33, 6.35], size: [0.5, 0.85, 1.2], rotationY: 0, material: 'Marble' },
-        { id: 'bath-obj-1', type: 'CUSTOM', name: 'Wall-hung WC', position: [8.95, 7.42], size: [0.6, 0.78, 0.4], rotationY: 0, material: 'White' },
-        { id: 'bath-obj-2', type: 'CUSTOM', name: 'Glass shower', position: [10.12, 7.5], size: [0.88, 2.05, 0.88], rotationY: 0, material: 'Glass' },
+        { id: 'bath-obj-0', type: 'CABINET', name: 'Vanity + basin', position: [10.25, 6.35], size: [1.2, 0.6, 1.74], rotationY: -1.5708, material: 'Marble' },
+        { id: 'bath-obj-1', type: 'CUSTOM', name: 'Wall-hung WC', position: [9.04, 7.42], size: [0.6, 0.88, 0.85], rotationY: 1.5708, material: 'White' },
+        { id: 'bath-obj-2', type: 'CUSTOM', name: 'Glass shower', position: [10.05, 7.5], size: [0.9, 0.92, 2.0], rotationY: 0, material: 'Glass' },
       ]
     },
   ]

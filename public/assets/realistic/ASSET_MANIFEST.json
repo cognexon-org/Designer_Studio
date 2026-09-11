@@ -1,0 +1,292 @@
+{
+  "version": "1.1.0",
+  "license": "Project-created original assets; usable with this source package.",
+  "models": [
+    {
+      "id": "bed",
+      "file": "models/bed.glb",
+      "bytes": 7804,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.96,
+        1.1,
+        2.065
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "bed_queen",
+      "file": "models/bed_queen.glb",
+      "bytes": 7732,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.63,
+        1.0,
+        2.0
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "chair",
+      "file": "models/chair.glb",
+      "bytes": 8372,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        0.78,
+        1.079051,
+        0.819427
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "coffee_table",
+      "file": "models/coffee_table.glb",
+      "bytes": 35924,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.14,
+        0.531913,
+        1.14
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "console",
+      "file": "models/console.glb",
+      "bytes": 10508,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        0.99,
+        0.7075,
+        0.423
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "desk",
+      "file": "models/desk.glb",
+      "bytes": 6920,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.1,
+        0.735,
+        0.55
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "dining_chair",
+      "file": "models/dining_chair.glb",
+      "bytes": 8104,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        0.46,
+        1.043442,
+        0.513166
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "dining_table",
+      "file": "models/dining_table.glb",
+      "bytes": 6372,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.55,
+        0.758077,
+        0.9
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "fridge",
+      "file": "models/fridge.glb",
+      "bytes": 8044,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        0.72,
+        1.84,
+        0.77
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "kitchen_counter",
+      "file": "models/kitchen_counter.glb",
+      "bytes": 10448,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.86,
+        0.92,
+        0.698511
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "kitchen_counter_short",
+      "file": "models/kitchen_counter_short.glb",
+      "bytes": 8732,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.26,
+        0.92,
+        0.698511
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "lamp",
+      "file": "models/lamp.glb",
+      "bytes": 38384,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.12,
+        1.83,
+        0.56
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "nightstand",
+      "file": "models/nightstand.glb",
+      "bytes": 9564,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        0.58,
+        0.63,
+        0.493
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "plant",
+      "file": "models/plant.glb",
+      "bytes": 47028,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        0.6,
+        1.72,
+        0.663394
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "shower",
+      "file": "models/shower.glb",
+      "bytes": 10608,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        0.9025,
+        2.0,
+        0.922
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "sofa",
+      "file": "models/sofa.glb",
+      "bytes": 16840,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        2.24,
+        1.038035,
+        0.893477
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "task_chair",
+      "file": "models/task_chair.glb",
+      "bytes": 15048,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        0.48,
+        1.117613,
+        0.580859
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "tv_unit",
+      "file": "models/tv_unit.glb",
+      "bytes": 12480,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        2.05,
+        1.54,
+        0.504
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "vanity",
+      "file": "models/vanity.glb",
+      "bytes": 32668,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.2,
+        1.74,
+        0.5975
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "wardrobe",
+      "file": "models/wardrobe.glb",
+      "bytes": 12660,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        1.66,
+        2.2,
+        0.702
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    },
+    {
+      "id": "wc",
+      "file": "models/wc.glb",
+      "bytes": 35388,
+      "coordinateSystem": "Y_UP",
+      "unit": "metre",
+      "nativeBoundsM": [
+        0.6,
+        0.8475,
+        0.88
+      ],
+      "fit": "UNIFORM_CONTAIN"
+    }
+  ],
+  "pbrSets": [
+    "oak",
+    "walnut",
+    "marble",
+    "tile",
+    "plaster",
+    "fabric_sand",
+    "fabric_charcoal",
+    "rug",
+    "brushed_metal"
+  ],
+  "hdri": "hdri/studio_day_1k.hdr",
+  "notes": "Corrected Y-up, metre-based local GLB catalogue. Runtime uses uniform contain scaling; procedural fallback remains available."
+}
