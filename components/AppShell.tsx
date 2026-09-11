@@ -33,10 +33,10 @@ export function AppShell({ children, compact = false }: { children: ReactNode; c
         <aside className="sidebar">
           <Link className="sidebar-brand" href="/studio">
             <img src="/logo-mark.svg" width={36} height={36} alt="" />
-            <span><strong>PropertyTour360</strong><small>Designer Studio</small></span>
+            <span><strong>ProgressionAi</strong><small>Project Studio</small></span>
           </Link>
           <nav className="sidebar-nav" aria-label="Main navigation">
-            <Link className={pathname === '/studio' ? 'active' : ''} href="/studio"><Icon name="projects"/>Projects</Link>
+            <Link className={pathname === '/studio' || pathname.startsWith('/studio/progress/') ? 'active' : ''} href="/studio"><Icon name="projects"/>Projects</Link>
             <Link className={pathname === '/studio/panoramas' ? 'active' : ''} href="/studio/panoramas"><Icon name="cube"/>360° Library</Link>
             <a href="#" aria-disabled="true"><Icon name="layers"/>Material library<span className="soon">Soon</span></a>
             <a href="#" aria-disabled="true"><Icon name="sofa"/>Furniture library<span className="soon">Soon</span></a>

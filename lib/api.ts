@@ -2,7 +2,8 @@ import { clearToken, getApiBase, getToken } from './auth';
 import type {
   CaptureSummary, CatalogueAsset, ClientShareLink, DesignComment, DesignModel, DesignOption, DesignProject,
   EvidenceResponse, ExportFormat, ExportRecord, GeometryProposal, MaterialRecord, MeasurementModel, ModelReview,
-  ProcessingJob, ProductRecord, PublicDesignManifest, PublicShareDesign, PanoramaAsset } from './types';
+  ProcessingJob, ProductRecord, PublicDesignManifest, PublicShareDesign, PanoramaAsset,
+  ProgressProject, ProgressProjectSummary, CaptureSnapshot, ProjectIssue } from './types';
 
 export class ApiError extends Error {
   constructor(public status: number, public payload: unknown) {
@@ -42,6 +43,11 @@ export const api = {
   requestOtp: (phone: string) => request<{ requested: true; expiresInSeconds: number; developmentOtp?: string }>('/v1/auth/otp/request', { method: 'POST', body: JSON.stringify({ phone }) }, false),
   verifyOtp: (phone: string, code: string, name?: string) => request<{ token: string; user: { id: string; name?: string; role: string; organization: { name: string } } }>('/v1/auth/otp/verify', { method: 'POST', body: JSON.stringify({ phone, code, name }) }, false),
   me: () => request<{ id: string; name?: string; phone: string; role: string; organization: { name: string } }>('/v1/me'),
+  listProgressProjects: () => request<ProgressProjectSummary[]>('/v2/progress-projects'),
+  getProgressProject: (projectId: string) => request<ProgressProject>(`/v2/progress-projects/${projectId}`),
+  getProgressTimeline: (projectId: string) => request<CaptureSnapshot[]>(`/v2/progress-projects/${projectId}/timeline`),
+  createProgressIssue: (projectId: string, body: { title: string; description?: string; severity?: string; spatialRoomId?: string; captureSnapshotId?: string }) =>
+    request<ProjectIssue>(`/v2/progress-projects/${projectId}/issues`, { method: 'POST', body: JSON.stringify(body) }),
   listProjects: () => request<DesignProject[]>('/v1/design-projects'),
   getProject: (projectId: string) => request<DesignProject>(`/v1/design-projects/${projectId}`),
   listCaptures: () => request<CaptureSummary[]>('/v1/captures'),

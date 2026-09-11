@@ -205,3 +205,156 @@ export type Selection =
   | { kind: 'OPENING'; roomId: string; wallId: string; openingId: string }
   | { kind: 'OBJECT'; roomId: string; objectId: string }
   | null;
+
+// ProgressionAi spatial-temporal project types. These sit beside the existing
+// DesignProject model so Mode A, Mode B and design versions can share one
+// persistent property/floor/room identity without breaking legacy Studio flows.
+export interface SpatialFloorSummary {
+  id: string;
+  projectId: string;
+  name: string;
+  level?: number | null;
+  elevationM?: number | null;
+  transform?: Record<string, unknown> | null;
+}
+
+export interface SpatialRoomSummary {
+  id: string;
+  projectId: string;
+  floorId?: string | null;
+  name: string;
+  roomType?: string | null;
+  sortOrder: number;
+  canonicalFrame?: Record<string, unknown> | null;
+  canonicalGeometry?: Record<string, unknown> | null;
+}
+
+export interface ProgressDesignProjectSummary {
+  id: string;
+  name: string;
+  status: string;
+  slug: string;
+  activeVersion: number;
+  updatedAt: string;
+}
+
+export interface ProgressCaptureRoom {
+  id: string;
+  captureId: string;
+  name: string;
+  sortOrder: number;
+  panoramaAssetId?: string | null;
+  spatialRoomId?: string | null;
+  ceilingHeightM?: number | null;
+  spatialRoom?: SpatialRoomSummary | null;
+}
+
+export interface ProgressCaptureAsset {
+  id: string;
+  roomId?: string | null;
+  spatialRoomId?: string | null;
+  kind: string;
+  mimeType?: string;
+  status: string;
+  sizeBytes?: number | string;
+  metadata?: Record<string, unknown> | null;
+  quality?: Record<string, unknown> | null;
+  createdAt: string;
+}
+
+export interface CaptureSnapshot {
+  id: string;
+  projectId: string;
+  captureId: string;
+  floorId?: string | null;
+  capturedAt: string;
+  sourceType: 'PROPERTY_TOUR' | 'DESIGN_SCAN' | string;
+  status: string;
+  spatialScope?: Record<string, unknown> | null;
+  qualityReport?: Record<string, unknown> | null;
+  processingVersion?: string | null;
+  reconstructionVersion?: string | null;
+  floor?: SpatialFloorSummary | null;
+  capture: {
+    id: string;
+    mode: 'PROPERTY_TOUR' | 'DESIGN_SCAN';
+    status: string;
+    platform: string;
+    startedAt?: string | null;
+    createdAt: string;
+    rooms: ProgressCaptureRoom[];
+    assets: ProgressCaptureAsset[];
+    designProjects?: ProgressDesignProjectSummary[];
+    jobs?: ProcessingJob[];
+  };
+}
+
+export interface CaptureRegistration {
+  id: string;
+  projectId: string;
+  sourceSnapshotId: string;
+  targetSnapshotId: string;
+  transform: Record<string, unknown>;
+  overlap?: number | null;
+  confidence: number;
+  method: string;
+  version: string;
+  status: string;
+  verifiedById?: string | null;
+  createdAt: string;
+}
+
+export interface ProjectIssue {
+  id: string;
+  projectId: string;
+  spatialRoomId?: string | null;
+  captureSnapshotId?: string | null;
+  spatialRef?: Record<string, unknown> | null;
+  title: string;
+  description?: string | null;
+  status: string;
+  severity: string;
+  assigneeId?: string | null;
+  verification?: string | null;
+  evidenceRefs?: string[] | null;
+  createdById: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AiObservation {
+  id: string;
+  projectId: string;
+  sourceSnapshotId?: string | null;
+  targetSnapshotId?: string | null;
+  spatialRoomId?: string | null;
+  observationType: string;
+  spatialRef?: Record<string, unknown> | null;
+  structuredEvidence: Record<string, unknown>;
+  confidence: number;
+  modelVersion?: string | null;
+  policyVersion?: string | null;
+  status: 'PROPOSED' | 'CONFIRMED' | 'REJECTED' | 'CORRECTED' | string;
+  createdAt: string;
+}
+
+export interface ProgressProjectSummary {
+  id: string;
+  unitId: string;
+  name: string;
+  status: string;
+  captureCadence?: string | null;
+  unit: UnitSummary;
+  floors: SpatialFloorSummary[];
+  rooms: SpatialRoomSummary[];
+  _count?: { snapshots: number; issues: number; observations: number };
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProgressProject extends ProgressProjectSummary {
+  snapshots: CaptureSnapshot[];
+  registrations: CaptureRegistration[];
+  issues: ProjectIssue[];
+  observations: AiObservation[];
+}

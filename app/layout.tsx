@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'PropertyTour360 Interior Designer Studio',
-  description: 'Create editable room concepts from verified PropertyTour360 Design Scans.'
+  title: 'ProgressionAi Project Studio',
+  description: 'Unified reality capture, spatial history, design and comparison workspace for ProgressionAi.'
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
