@@ -17,7 +17,7 @@ import { SSAOPass } from 'three/examples/jsm/postprocessing/SSAOPass.js';
 import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { modelBounds, normalizeFurniture, wallLength } from '@/lib/model';
-import { localAssetFor, LOCAL_ASSET_ROOT } from '@/lib/visual/assetRegistry';
+import { localAssetUrlFor, LOCAL_ASSET_ROOT } from '@/lib/visual/assetRegistry';
 import { PBR_MATERIAL_REGISTRY, type LocalPbrId } from '@/lib/visual/materialRegistry';
 import { lightingPreset as getLightingPreset, type LightingPresetName } from '@/lib/visual/lighting';
 import { qualityProfile, type RenderQuality } from '@/lib/visual/quality';
@@ -284,7 +284,7 @@ function material(
   name = 'Warm White',
   kind: MaterialKind = 'wall',
 ): THREE.Material {
-  const key = `${kind}:${name}`;
+  const key = `${runtime.quality}:${kind}:${name}`;
   const cached = runtime.materialCache.get(key);
   if (cached) return cached;
 
@@ -436,8 +436,8 @@ function disposeObject(root: THREE.Object3D, runtime: Runtime): void {
   root.removeFromParent();
 }
 
-function assetFor(item: FurnitureObject): string | null {
-  return localAssetFor(item)?.url ?? null;
+function assetFor(item: FurnitureObject, quality: RenderQuality): string | null {
+  return localAssetUrlFor(item, quality);
 }
 
 
@@ -628,7 +628,7 @@ async function loadAsset(runtime: Runtime, url: string, item: FurnitureObject): 
   }
   const source = await cached;
   const instance = source.clone(true);
-  const bundled = url.startsWith(ASSET_ROOT);
+  const bundled = url.startsWith(LOCAL_ASSET_ROOT);
   instance.traverse((node) => {
     if (!(node instanceof THREE.Mesh)) return;
     if (bundled) node.material = materialForAssetMesh(runtime, node.name || node.parent?.name || '', item);
@@ -863,7 +863,7 @@ function buildRoom(
     group.add(objectGroup);
     runtime.objectMap.set(item.id, { group: objectGroup, roomId: room.id, object: item });
 
-    const url = assetFor(item);
+    const url = assetFor(item, runtime.quality);
     if (url) {
       void loadAsset(runtime, url, item)
         .then((asset) => {
@@ -889,6 +889,72 @@ function buildRoom(
   });
 
   return group;
+}
+
+function configurePostProcessing(runtime: Runtime): void {
+  runtime.composer?.dispose();
+  runtime.composer = null;
+  runtime.ssao = null;
+  runtime.smaa = null;
+
+  const profile = qualityProfile(runtime.quality);
+  if (profile.postProcessing === 'OFF') return;
+
+  const width = Math.max(1, runtime.renderer.domElement.clientWidth || 1);
+  const height = Math.max(1, runtime.renderer.domElement.clientHeight || 1);
+  const pixelRatio = Math.min(window.devicePixelRatio || 1, profile.maxPixelRatio, 1.5);
+  const composer = new EffectComposer(runtime.renderer);
+  composer.setPixelRatio(pixelRatio);
+  composer.setSize(width, height);
+  composer.addPass(new RenderPass(runtime.scene, runtime.camera));
+
+  const ssao = new SSAOPass(runtime.scene, runtime.camera, width, height);
+  ssao.kernelRadius = 10;
+  ssao.minDistance = 0.0015;
+  ssao.maxDistance = 0.1;
+  composer.addPass(ssao);
+
+  let smaa: SMAAPass | null = null;
+  if (profile.postProcessing === 'SSAO_SMAA') {
+    smaa = new SMAAPass();
+    smaa.setSize(width * pixelRatio, height * pixelRatio);
+    composer.addPass(smaa);
+  }
+  composer.addPass(new OutputPass());
+
+  runtime.composer = composer;
+  runtime.ssao = ssao;
+  runtime.smaa = smaa;
+}
+
+function applyRenderQuality(runtime: Runtime, quality: RenderQuality): void {
+  runtime.quality = quality;
+  const profile = qualityProfile(quality);
+  const pixelRatio = Math.min(window.devicePixelRatio || 1, profile.maxPixelRatio);
+
+  runtime.renderer.setPixelRatio(pixelRatio);
+  runtime.renderer.shadowMap.enabled = profile.shadows;
+  runtime.sun.castShadow = profile.shadows;
+  if (runtime.sun.shadow.mapSize.x !== profile.shadowMapSize || runtime.sun.shadow.mapSize.y !== profile.shadowMapSize) {
+    runtime.sun.shadow.map?.dispose();
+    runtime.sun.shadow.map = null;
+    runtime.sun.shadow.mapSize.set(profile.shadowMapSize, profile.shadowMapSize);
+    runtime.sun.shadow.needsUpdate = true;
+  }
+
+  const anisotropy = Math.min(runtime.maxAnisotropy, profile.maxAnisotropy);
+  runtime.textureCache.forEach((entry) => {
+    if (entry.anisotropy !== anisotropy) {
+      entry.anisotropy = anisotropy;
+      entry.needsUpdate = true;
+    }
+  });
+
+  configurePostProcessing(runtime);
+  runtime.degradeStep = 0;
+  runtime.slowFrameStreak = 0;
+  runtime.frameCostEma = undefined;
+  runtime.invalidate?.();
 }
 
 function render(runtime: Runtime): void {
@@ -959,7 +1025,7 @@ export function ScenePreview({
     const camera = new THREE.PerspectiveCamera(42, 1, 0.04, 300);
     const profile = qualityProfile(quality);
     const renderer = new THREE.WebGLRenderer({
-      antialias: profile.antialias,
+      antialias: true,
       preserveDrawingBuffer: true,
       powerPreference: 'high-performance',
     });
@@ -1187,10 +1253,11 @@ export function ScenePreview({
     const resize = () => {
       const width = Math.max(1, host.clientWidth);
       const height = Math.max(1, host.clientHeight);
+      const activePixelRatio = Math.min(window.devicePixelRatio || 1, qualityProfile(runtime.quality).maxPixelRatio);
       renderer.setSize(width, height, false);
-      composer?.setSize(width, height);
-      ssao?.setSize(width, height);
-      smaa?.setSize(width * pixelRatio, height * pixelRatio);
+      runtime.composer?.setSize(width, height);
+      runtime.ssao?.setSize(width, height);
+      runtime.smaa?.setSize(width * activePixelRatio, height * activePixelRatio);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
     };
@@ -1243,11 +1310,17 @@ export function ScenePreview({
       runtime.textureCache.forEach((entry) => entry.dispose());
       environmentTarget.dispose();
       pmrem.dispose();
-      composer?.dispose();
+      runtime.composer?.dispose();
       renderer.dispose();
       renderer.domElement.remove();
       runtimeRef.current = null;
     };
+  }, []);
+
+  useEffect(() => {
+    const runtime = runtimeRef.current;
+    if (!runtime) return;
+    applyRenderQuality(runtime, quality);
   }, [quality]);
 
   useEffect(() => {
@@ -1274,6 +1347,7 @@ export function ScenePreview({
         room,
         showCeiling,
         hidden: [...hiddenSet].filter((id) => room.walls.some((wall) => wall.id === id)),
+        quality,
       });
       if (runtime.signatures.get(room.id) === signature) {
         const existing = runtime.roomGroups.get(room.id);
@@ -1292,7 +1366,7 @@ export function ScenePreview({
       runtime.signatures.set(room.id, signature);
     });
     runtimeRef.current?.invalidate?.();
-  }, [model, showCeiling, isolateRoomId, hiddenSet]);
+  }, [model, showCeiling, isolateRoomId, hiddenSet, quality]);
 
   useEffect(() => {
     const runtime = runtimeRef.current;

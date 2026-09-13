@@ -1,4 +1,5 @@
 import type { FurnitureObject } from '@/lib/types';
+import type { RenderQuality } from './quality';
 
 export const LOCAL_ASSET_ROOT = '/assets/realistic';
 
@@ -105,6 +106,11 @@ export const LOCAL_ASSET_REGISTRY: Record<string, LocalAssetDescriptor> = {
 };
 
 export function localAssetFor(item: FurnitureObject): LocalAssetDescriptor | null {
+  if (item.catalogueAssetId?.startsWith('builtin:')) {
+    const localId = item.catalogueAssetId.slice('builtin:'.length);
+    const bundled = LOCAL_ASSET_REGISTRY[localId];
+    if (bundled) return bundled;
+  }
   if (item.assetUrl) return { id: item.catalogueAssetId ?? item.id, url: item.assetUrl };
   const name = item.name.toLowerCase();
   if (item.type === 'SOFA') return name.includes('sectional') || name.includes('chaise') ? LOCAL_ASSET_REGISTRY.sectional_sofa : LOCAL_ASSET_REGISTRY.sofa;
@@ -146,4 +152,16 @@ export function localAssetFor(item: FurnitureObject): LocalAssetDescriptor | nul
     if (name.includes('vanity')) return LOCAL_ASSET_REGISTRY.vanity;
   }
   return null;
+}
+
+export function localAssetUrlFor(item: FurnitureObject, quality: RenderQuality): string | null {
+  const descriptor = localAssetFor(item);
+  if (!descriptor) return null;
+  const lods = descriptor.lods ?? [];
+  if (!lods.length) return descriptor.url;
+  const preferred = quality === 'PERFORMANCE' ? 'LOW' : quality === 'BALANCED' ? 'MEDIUM' : 'HIGH';
+  return lods.find((lod) => lod.level === preferred)?.url
+    ?? lods.find((lod) => lod.level === 'HIGH')?.url
+    ?? lods[0]?.url
+    ?? descriptor.url;
 }
